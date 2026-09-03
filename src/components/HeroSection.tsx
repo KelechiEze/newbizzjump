@@ -71,7 +71,7 @@ export const HeroSection = ({
           className="lg:col-span-7 flex flex-col justify-between"
         >
           <p className="text-base sm:text-lg md:text-xl text-[#181a33]/85 font-medium max-w-xl leading-relaxed mb-6 md:mb-8 tracking-[-0.01em]">
-            Strategy and design that actually make real sense for your growing brand.
+            We design and develop high-performing websites and e-commerce experiences that make brands easier to discover, trust, and choose.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 sm:gap-6">
