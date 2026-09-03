@@ -186,7 +186,11 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
 
   const handleCardClick = (project: Project) => {
     if (!hasMoved) {
-      onSelectProject(project);
+      if (project.website) {
+        window.location.assign(project.website);
+      } else {
+        onSelectProject(project);
+      }
     }
   };
 

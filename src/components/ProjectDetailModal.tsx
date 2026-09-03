@@ -97,6 +97,17 @@ export const ProjectDetailModal = ({
               <p className="text-lg md:text-xl text-neutral-700 font-medium leading-relaxed max-w-3xl">
                 {project.shortDesc}
               </p>
+              {project.website && (
+                <a
+                  href={project.website}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 mt-5 px-4 py-2 bg-neutral-950 text-white rounded-full text-xs font-bold tracking-wider uppercase hover:bg-neutral-800 transition-colors"
+                >
+                  Visit Website
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
             </div>
 
             {/* Main Featured Gallery / Motion Reel */}

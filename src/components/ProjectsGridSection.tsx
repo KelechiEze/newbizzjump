@@ -136,6 +136,14 @@ export const ProjectsGridSection = ({
   onSelectProject,
   onOpenProjectsArchive,
 }: ProjectsGridSectionProps) => {
+  const handleProjectSelect = (project: Project) => {
+    if (project.website) {
+      window.location.assign(project.website);
+    } else {
+      onSelectProject(project);
+    }
+  };
+
   // Take top 4 showcase projects (Lumen Void, Primary Form, Luma Wood, Silence Studio)
   const displayProjects = projects.slice(0, 4);
 
@@ -171,7 +179,7 @@ export const ProjectsGridSection = ({
           <ProjectCard
             key={project.id}
             project={project}
-            onSelect={() => onSelectProject(project)}
+            onSelect={() => handleProjectSelect(project)}
           />
         ))}
       </div>

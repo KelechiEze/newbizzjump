@@ -5,6 +5,7 @@ export interface Project {
   category: 'Branding' | 'Packaging' | 'Digital' | '3D & Motion' | 'Editorial' | 'Campaign' | 'Art Direction' | 'Product Design' | 'Fashion';
   year: string;
   image: string;
+  website?: string;
   video?: string;
   duration?: string;
   tag?: string;

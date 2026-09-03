@@ -28,6 +28,14 @@ export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPa
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
+  const handleProjectSelect = (project: Project) => {
+    if (project.website) {
+      window.location.assign(project.website);
+    } else {
+      onSelectProject(project);
+    }
+  };
+
   const filteredProjects = PROJECTS.filter((proj) => {
     const matchesCategory =
       activeCategory === 'All' ||
@@ -65,7 +73,7 @@ export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPa
       <div className="w-full">
         <CarouselSection
           projects={PROJECTS}
-          onSelectProject={onSelectProject}
+          onSelectProject={handleProjectSelect}
         />
       </div>
 
@@ -127,7 +135,7 @@ export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPa
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: Math.min(idx * 0.05, 0.3) }}
-                  onClick={() => onSelectProject(project)}
+                  onClick={() => handleProjectSelect(project)}
                   className="group cursor-pointer flex flex-col select-none"
                 >
                   <div
