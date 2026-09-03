@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  h1, h2, h3, .font-display {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: -0.04em;
+  }
+  
+  .font-mono-clean {
+    font-family: 'Space Grotesk', ui-monospace, monospace;
+  }
+}
+
+/* Custom scrollbar hiding and dragging utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth snapping for touch devices */
+.snap-inline-carousel {
+  scroll-snap-type: x mandatory;
+}
+.snap-inline-card {
+  scroll-snap-align: start;
+}
+

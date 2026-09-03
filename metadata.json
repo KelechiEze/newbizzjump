@@ -1,0 +1,6 @@
+{
+  "name": "BIZZJUMP",
+  "description": "High-craft design system and portfolio showcase for BIZZJUMP with interactive infinite project carousel, animated typewriter hero, case studies, and studio workflow.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
