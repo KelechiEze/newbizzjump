@@ -51,7 +51,7 @@ export const ProjectDetailModal = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 20 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-5xl bg-[#fcfbf9] text-neutral-900 rounded-none sm:rounded-3xl shadow-2xl overflow-hidden z-10 my-auto min-h-screen sm:min-h-[auto] max-h-[92vh] flex flex-col"
+          className="relative w-full max-w-5xl bg-[#fcfbf9] text-neutral-900 rounded-[6px] shadow-2xl overflow-hidden z-10 my-auto min-h-screen sm:min-h-[auto] max-h-[92vh] flex flex-col"
         >
           {/* Header Bar */}
           <div className="sticky top-0 bg-[#fcfbf9]/90 backdrop-blur-md px-6 md:px-8 py-4 border-b border-neutral-200 flex items-center justify-between z-20">

@@ -1,6 +1,5 @@
-import { X, Award, Users, Globe, ArrowUpRight } from 'lucide-react';
+import { X, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { CREATORS } from '../data/projectsData';
 
 interface AboutModalProps {
   isOpen: boolean;
@@ -9,21 +8,14 @@ interface AboutModalProps {
 }
 
 const CLIENT_ROSTER = [
-  'Teenage Engineering',
-  'Polestar Electric',
-  'Nike Innovation Lab',
-  'Glossier Inc.',
-  'Spotify Design',
-  'Acne Studios',
-  'Rimowa Cologne',
-  'Nothing Tech',
-];
-
-const AWARDS = [
-  { year: '2026', org: 'Awwwards', title: 'Studio of the Year Nominee & 4x SOTD' },
-  { year: '2025', org: 'Red Dot', title: 'Best of the Best: Sustainable Packaging' },
-  { year: '2025', org: 'TDC New York', title: 'Type Directors Club Certificate of Typographic Excellence' },
-  { year: '2024', org: 'FWA', title: 'Site of the Day (3x)' },
+  "Lola Shoneyin",
+  'Dibire',
+  "Annie's Beauty",
+  'Cias Models',
+  'Cademie',
+  'Rad.ng',
+  'Talkglam Studios',
+  'Jovial Studios',
 ];
 
 export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalProps) => {
@@ -45,7 +37,7 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl bg-[#fcfbf9] text-neutral-900 rounded-3xl shadow-2xl overflow-hidden z-10 my-auto p-6 md:p-10 border border-neutral-200 flex flex-col max-h-[88vh]"
+          className="relative w-full max-w-4xl bg-[#fcfbf9] text-neutral-900 rounded-[6px] shadow-2xl overflow-hidden z-10 my-auto p-6 md:p-10 border border-neutral-200 flex flex-col max-h-[88vh]"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-6 border-b border-neutral-200">
@@ -67,56 +59,35 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
 
           {/* Body */}
           <div className="overflow-y-auto py-6 space-y-8">
-            {/* Manifesto Statement */}
+            {/* BIZZJUMP Introduction */}
             <div className="space-y-3">
               <h4 className="text-xl sm:text-2xl md:text-3xl font-bold text-neutral-950 tracking-tight leading-snug">
-                We craft radical brand clarity for category-defining companies through mathematical precision, brutalist restraint, and sensory depth.
+                Built by developers who care about how the internet feels.
               </h4>
               <p className="text-sm sm:text-base text-neutral-700 leading-relaxed max-w-2xl">
-                Das Studio operates as an autonomous collective of 23 principal designers, 3D artists, brand strategists, and creative technologists. We reject unnecessary agency bloat to deliver pure, uncompromised craftsmanship at lightning speed.
+                BizzJump was created by a team of developers with a simple idea: business websites should do more than just exist. They should make people stop, explore, trust, and take action.
+                <br /><br />
+                We combine web design, web development, e-commerce, Shopify, and modern digital experiences to help businesses build a stronger presence online.
+                <br /><br />
+                From a simple business website to a full-scale e-commerce store, we approach every project with the same mindset: understand the brand, understand the people it wants to reach, and build something that makes sense for both.
               </p>
             </div>
 
-            {/* 23 Creators Showcase */}
+            {/* Brands We Have Worked With */}
             <div>
-              <div className="flex items-center justify-between mb-4">
-                <h5 className="text-xs font-bold uppercase tracking-wider text-neutral-500 flex items-center gap-1.5">
-                  <Users className="w-3.5 h-3.5" />
-                  <span>The 23 Creators (Leadership Core)</span>
-                </h5>
-                <span className="text-xs text-neutral-400 font-mono-clean">23 Active Makers</span>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                {CREATORS.map((creator, i) => (
-                  <div
-                    key={i}
-                    className="p-3.5 bg-white rounded-2xl border border-neutral-200/80 shadow-xs flex items-center gap-3"
-                  >
-                    <img
-                      src={creator.avatar}
-                      alt={creator.name}
-                      referrerPolicy="no-referrer"
-                      className="w-11 h-11 rounded-full object-cover ring-2 ring-neutral-100 flex-shrink-0"
-                    />
-                    <div className="overflow-hidden">
-                      <div className="text-xs font-bold text-neutral-900 truncate">
-                        {creator.name}
-                      </div>
-                      <div className="text-[11px] text-neutral-500 truncate">
-                        {creator.role}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Client Roster */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3">
-                Select Brand Partners
-              </h5>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  window.requestAnimationFrame(() => {
+                    document.getElementById('who-we-are-section')?.scrollIntoView({ behavior: 'smooth' });
+                  });
+                }}
+                className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3 inline-flex items-center gap-1.5 hover:text-neutral-950 transition-colors cursor-pointer"
+              >
+                <span>Brands We Have Worked With</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </button>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 {CLIENT_ROSTER.map((client, i) => (
                   <div
@@ -129,33 +100,6 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
               </div>
             </div>
 
-            {/* Awards & Recognition */}
-            <div>
-              <h5 className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-3 flex items-center gap-1.5">
-                <Award className="w-3.5 h-3.5" />
-                <span>Industry Recognition</span>
-              </h5>
-              <div className="space-y-2">
-                {AWARDS.map((award, i) => (
-                  <div
-                    key={i}
-                    className="p-3.5 bg-white rounded-xl border border-neutral-200 flex items-center justify-between text-xs"
-                  >
-                    <span className="font-bold text-neutral-950">
-                      {award.title}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 bg-neutral-100 rounded text-[11px] font-bold">
-                        {award.org}
-                      </span>
-                      <span className="text-neutral-400 font-mono-clean">
-                        {award.year}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
 
           {/* Footer */}

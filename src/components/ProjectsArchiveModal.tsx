@@ -42,7 +42,7 @@ export const ProjectsArchiveModal = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-5xl bg-[#fcfbf9] text-neutral-900 rounded-3xl shadow-2xl overflow-hidden z-10 my-auto p-6 md:p-10 border border-neutral-200 flex flex-col max-h-[90vh]"
+          className="relative w-full max-w-5xl bg-[#fcfbf9] text-neutral-900 rounded-[6px] shadow-2xl overflow-hidden z-10 my-auto p-6 md:p-10 border border-neutral-200 flex flex-col max-h-[90vh]"
         >
           {/* Header */}
           <div className="flex items-center justify-between pb-6 border-b border-neutral-200">
