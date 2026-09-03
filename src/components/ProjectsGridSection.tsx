@@ -174,7 +174,7 @@ export const ProjectsGridSection = ({
       </div>
 
       {/* 2-Column Projects Showcase Grid with ultra-tight spacing */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-3 sm:gap-x-4 md:gap-x-5 gap-y-6 sm:gap-y-8">
+      <div className="grid grid-cols-2 md:grid-cols-2 gap-x-3 sm:gap-x-4 md:gap-x-5 gap-y-6 sm:gap-y-8">
         {displayProjects.map((project) => (
           <ProjectCard
             key={project.id}
