@@ -43,10 +43,10 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
           <div className="flex items-center justify-between pb-6 border-b border-neutral-200">
             <div>
               <span className="text-[11px] font-bold tracking-widest uppercase text-neutral-500 block mb-1">
-                BIZZJUMP • CREATIVE STUDIO
+                BIZZJUMP • CREATIVE AGENCY
               </span>
               <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 uppercase">
-                About The Studio
+                About The Creators
               </h3>
             </div>
             <button
