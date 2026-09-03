@@ -150,7 +150,7 @@ export const FooterSection = ({ onSelectProject }: FooterSectionProps) => {
             </form>
           </div>
 
-          {/* Social Channels & Studio Address */}
+          {/* Social Channels */}
           <div className="mt-14 sm:mt-20 space-y-4">
             <div>
               <span className="text-[11px] font-bold tracking-widest uppercase text-neutral-400 block mb-2">
@@ -163,10 +163,6 @@ export const FooterSection = ({ onSelectProject }: FooterSectionProps) => {
               />
             </div>
 
-            <p className="text-xs sm:text-sm font-normal text-neutral-400 leading-relaxed pt-2">
-              Unter den Linden 129, <br />
-              Berlin, Germany
-            </p>
           </div>
         </div>
 

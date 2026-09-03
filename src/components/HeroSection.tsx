@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { ArrowUpRight, Clock, MapPin, Users, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowUpRight, Clock, Users } from 'lucide-react';
 import { motion } from 'motion/react';
 import { CREATORS } from '../data/projectsData';
 
@@ -16,32 +16,10 @@ export const HeroSection = ({
   onOpenAbout,
   onOpenContact,
 }: HeroSectionProps) => {
-  // Live Berlin Time clock
-  const [berlinTime, setBerlinTime] = useState('');
   const [activeStatHover, setActiveStatHover] = useState<string | null>(null);
 
   // BIZZJUMP letters for silky-smooth slow-motion bouncing wave
   const titleLetters = 'BIZZJUMP'.split('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const timeStr = new Intl.DateTimeFormat('en-GB', {
-          timeZone: 'Europe/Berlin',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-        }).format(new Date());
-        setBerlinTime(timeStr);
-      } catch {
-        setBerlinTime('11:54:20');
-      }
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <section className="w-full px-6 md:px-12 lg:px-16 pt-6 md:pt-10 pb-12 select-none relative overflow-x-clip">
@@ -155,35 +133,7 @@ export const HeroSection = ({
               )}
             </div>
 
-            {/* Stat Row 2: BASED IN */}
-            <div
-              onMouseEnter={() => setActiveStatHover('berlin')}
-              onMouseLeave={() => setActiveStatHover(null)}
-              onClick={onOpenAbout}
-              className="py-3 border-b border-neutral-200 flex items-center justify-between group cursor-pointer hover:border-[#181a33] transition-colors relative"
-              id="stat-based-in"
-            >
-              <span className="text-neutral-500 group-hover:text-[#181a33] transition-colors flex items-center gap-2">
-                BASED IN
-              </span>
-              <span className="text-[#181a33] font-black text-sm sm:text-base group-hover:underline">
-                BERLIN
-              </span>
-
-              {/* Hover Tooltip with Live Clock */}
-              {activeStatHover === 'berlin' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute bottom-full right-0 mb-2 px-3 py-1.5 bg-[#181a33] text-white text-[11px] font-mono-clean rounded shadow-lg pointer-events-none z-20 whitespace-nowrap flex items-center gap-2"
-                >
-                  <MapPin className="w-3 h-3 text-[#dbfa07]" />
-                  <span>Local Time: {berlinTime || '11:54:20'} (CET)</span>
-                </motion.div>
-              )}
-            </div>
-
-            {/* Stat Row 3: CREATORS */}
+            {/* Stat Row 2: CREATORS */}
             <div
               onMouseEnter={() => setActiveStatHover('creators')}
               onMouseLeave={() => setActiveStatHover(null)}

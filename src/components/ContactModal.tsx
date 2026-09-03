@@ -1,5 +1,5 @@
-import { useState, useEffect, FormEvent } from 'react';
-import { X, Mail, MapPin, Phone, Clock, ArrowUpRight, Send, CheckCircle2 } from 'lucide-react';
+import { useState, FormEvent } from 'react';
+import { X, Mail, ArrowUpRight, Send, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface ContactModalProps {
@@ -9,29 +9,8 @@ interface ContactModalProps {
 }
 
 export const ContactModal = ({ isOpen, onClose, onOpenStartProject }: ContactModalProps) => {
-  const [berlinTime, setBerlinTime] = useState('');
   const [messageSent, setMessageSent] = useState(false);
   const [form, setForm] = useState({ name: '', email: '', message: '' });
-
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const timeStr = new Intl.DateTimeFormat('en-GB', {
-          timeZone: 'Europe/Berlin',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-        }).format(new Date());
-        setBerlinTime(timeStr);
-      } catch {
-        setBerlinTime('11:54:20');
-      }
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   if (!isOpen) return null;
 
@@ -83,31 +62,19 @@ export const ContactModal = ({ isOpen, onClose, onOpenStartProject }: ContactMod
 
           {/* Body */}
           <div className="py-6 space-y-6">
-            {/* Quick Studio Stats Pill Bar */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="p-4 bg-white rounded-2xl border border-neutral-200 flex items-center gap-3">
-                <Clock className="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 block">
-                    Berlin Live Studio Time
-                  </span>
-                  <span className="text-sm font-bold font-mono-clean text-neutral-950">
-                    CET {berlinTime} (Active)
-                  </span>
-                </div>
-              </div>
-
+            {/* Contact Details */}
+            <div className="grid grid-cols-1 gap-3">
               <div className="p-4 bg-white rounded-2xl border border-neutral-200 flex items-center gap-3">
                 <Mail className="w-5 h-5 text-neutral-900 flex-shrink-0" />
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 block">
-                    Direct Inquiry Line
+                    Contact BIZZJUMP
                   </span>
                   <a
-                    href="mailto:hello@das-studio.berlin"
+                    href="mailto:INFO@DASSTUDIO.COM"
                     className="text-xs font-bold text-neutral-950 hover:underline"
                   >
-                    hello@das-studio.berlin
+                    INFO@DASSTUDIO.COM
                   </a>
                 </div>
               </div>
@@ -186,7 +153,7 @@ export const ContactModal = ({ isOpen, onClose, onOpenStartProject }: ContactMod
               <div className="py-8 text-center space-y-3 bg-white rounded-2xl border border-neutral-200">
                 <CheckCircle2 className="w-10 h-10 text-emerald-600 mx-auto" />
                 <h4 className="text-lg font-bold text-neutral-950">
-                  Message Dispatched to Berlin Team
+                  Message sent to BIZZJUMP
                 </h4>
                 <p className="text-xs text-neutral-500 max-w-sm mx-auto">
                   We have logged your query and will reply to <strong className="text-neutral-900">{form.email}</strong> within 3 hours.

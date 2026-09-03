@@ -107,7 +107,7 @@ export const StartProjectModal = ({ isOpen, onClose }: StartProjectModalProps) =
           <div className="flex items-center justify-between pb-6 border-b border-neutral-200">
             <div>
               <span className="text-[11px] font-bold tracking-widest uppercase text-neutral-500 block mb-1">
-                DAS STUDIO • BERLIN SPRINT INITIATION
+                BIZZJUMP • PROJECT INITIATION
               </span>
               <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 uppercase">
                 {isSubmitted ? 'Brief Received' : 'Start a Project'}
@@ -339,7 +339,7 @@ export const StartProjectModal = ({ isOpen, onClose }: StartProjectModalProps) =
                   Sprint Request Dispatched!
                 </h4>
                 <p className="text-sm text-neutral-600 max-w-md mx-auto">
-                  Thank you, <strong className="text-neutral-900">{formData.name}</strong>. Our Berlin team has received your brief and will review your requirements within <strong className="text-neutral-900">3 hours</strong>.
+                  Thank you, <strong className="text-neutral-900">{formData.name}</strong>. BIZZJUMP has received your brief and will review your requirements within <strong className="text-neutral-900">3 hours</strong>.
                 </p>
               </div>
 

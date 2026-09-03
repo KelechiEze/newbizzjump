@@ -1,4 +1,4 @@
-import { X, MapPin, Award, Users, Globe, ArrowUpRight } from 'lucide-react';
+import { X, Award, Users, Globe, ArrowUpRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { CREATORS } from '../data/projectsData';
 
@@ -51,7 +51,7 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
           <div className="flex items-center justify-between pb-6 border-b border-neutral-200">
             <div>
               <span className="text-[11px] font-bold tracking-widest uppercase text-neutral-500 block mb-1">
-                BIZZJUMP • BERLIN MITTE & KREUZBERG
+                BIZZJUMP • CREATIVE STUDIO
               </span>
               <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 uppercase">
                 About The Studio
@@ -73,7 +73,7 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
                 We craft radical brand clarity for category-defining companies through mathematical precision, brutalist restraint, and sensory depth.
               </h4>
               <p className="text-sm sm:text-base text-neutral-700 leading-relaxed max-w-2xl">
-                Founded in Berlin, Das Studio operates as an autonomous collective of 23 principal designers, 3D artists, brand strategists, and creative technologists. We reject unnecessary agency bloat to deliver pure, uncompromised craftsmanship at lightning speed.
+                Das Studio operates as an autonomous collective of 23 principal designers, 3D artists, brand strategists, and creative technologists. We reject unnecessary agency bloat to deliver pure, uncompromised craftsmanship at lightning speed.
               </p>
             </div>
 
@@ -105,9 +105,6 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
                       </div>
                       <div className="text-[11px] text-neutral-500 truncate">
                         {creator.role}
-                      </div>
-                      <div className="text-[10px] text-neutral-400 font-mono-clean truncate">
-                        {creator.location}
                       </div>
                     </div>
                   </div>
@@ -162,11 +159,7 @@ export const AboutModal = ({ isOpen, onClose, onOpenStartProject }: AboutModalPr
           </div>
 
           {/* Footer */}
-          <div className="pt-4 border-t border-neutral-200 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs text-neutral-500">
-              <MapPin className="w-3.5 h-3.5 text-neutral-900" />
-              <span>Brunnenstraße 42, 10115 Berlin, Germany</span>
-            </div>
+          <div className="pt-4 border-t border-neutral-200 flex items-center justify-end">
             <button
               onClick={() => {
                 onClose();
