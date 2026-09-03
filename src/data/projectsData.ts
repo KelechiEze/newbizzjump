@@ -2,6 +2,39 @@ import { Project, ApproachStep, JournalArticle, CreatorMember } from '../types';
 
 export const PROJECTS: Project[] = [
   {
+    id: 'annie-editorial',
+    title: 'ANNIE',
+    client: 'Annie Studio Paris',
+    category: 'Fashion',
+    year: '2025',
+    duration: '4 weeks',
+    tag: 'FASHION & EDITORIAL',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Annie.avif',
+    accentColor: '#d4a373',
+    badge: 'Fashion',
+    shortDesc: 'Avant-garde fashion editorial, sensual portraiture and digital brand campaign.',
+    fullDesc: 'A captivating high-contrast editorial and fashion campaign exploring timeless silhouette architecture, warm cinematic lighting, and modern European editorial typography.',
+    challenge: 'Compose an arresting visual narrative that fuses classical haute couture elegance with minimalist contemporary digital aesthetics.',
+    solution: 'Engineered a bespoke art direction and typography system with calibrated monochromatic tones, rich textures, and responsive digital storytelling.',
+    deliverables: ['Creative Art Direction', 'Fashion Editorial Series', 'Brand Identity', 'Digital Flagship Experience'],
+    metrics: [
+      { label: 'Global Reach', value: '3.6M' },
+      { label: 'Editorial Features', value: '5 Publications' },
+      { label: 'Engagement Rate', value: '+82%' },
+    ],
+    palette: [
+      { name: 'Warm Terracotta', hex: '#D4A373' },
+      { name: 'Deep Noir', hex: '#121214' },
+      { name: 'Silk Ivory', hex: '#F7F5F0' },
+      { name: 'Bronze Sand', hex: '#B08968' },
+    ],
+    gallery: [
+      { url: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Annie.avif', caption: 'Lead editorial portraiture study for Annie.' },
+      { url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop', caption: 'Dual-tone studio portraiture series.' },
+      { url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop', caption: 'High-fashion kinetic studio portrait series.' },
+    ],
+  },
+  {
     id: 'lumen-void',
     title: 'LUMEN VOID',
     client: 'Lumen Oceanic Labs',
