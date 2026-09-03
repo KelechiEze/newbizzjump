@@ -108,68 +108,6 @@ export const ContactPage = () => {
                   </a>
                 </div>
 
-                {/* Location */}
-                <div className="py-4.5 flex items-center justify-between text-xs sm:text-sm">
-                  <span className="font-bold tracking-wider uppercase text-neutral-800">
-                    LOCATION
-                  </span>
-                  <span className="font-bold tracking-wider uppercase text-neutral-950">
-                    BERLIN
-                  </span>
-                </div>
-              </div>
-
-              {/* Styled Satellite Dark Map Container */}
-              <div className="relative w-full aspect-[4/3] rounded-xs overflow-hidden bg-neutral-900 border border-neutral-300/80 group">
-                {/* Satellite / Dark Map background */}
-                <img
-                  src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=1200&auto=format&fit=crop"
-                  alt="Berlin Studio Location Map"
-                  className="w-full h-full object-cover filter brightness-[0.75] contrast-[1.2] group-hover:scale-105 transition-transform duration-700"
-                />
-
-                {/* Map Graphic Overlay Lines & Pins */}
-                <div className="absolute inset-0 bg-neutral-950/40 pointer-events-none" />
-                
-                {/* Map Labels Graphic */}
-                <div className="absolute inset-0 p-4 pointer-events-none flex flex-col justify-between">
-                  <div className="flex justify-between items-start">
-                    {/* Open in maps trigger button */}
-                    <a
-                      href="https://maps.google.com/?q=Berlin,+Germany"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="pointer-events-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-sm bg-neutral-900/85 backdrop-blur-md text-white text-[11px] font-medium tracking-wide hover:bg-neutral-950 transition-colors border border-white/10 shadow-sm"
-                    >
-                      <span>Open in Maps</span>
-                      <ArrowUpRight className="w-3 h-3" />
-                    </a>
-                  </div>
-
-                  {/* Berlin Center Pin & Label */}
-                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center gap-2">
-                    <div className="relative flex items-center justify-center">
-                      <span className="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-white opacity-40"></span>
-                      <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-white shadow-[0_0_8px_white]"></span>
-                    </div>
-                    <span className="text-white font-bold text-sm tracking-wider uppercase drop-shadow-md">
-                      Berlin
-                    </span>
-                  </div>
-
-                  {/* Secondary Region Labels */}
-                  <div className="text-[10px] font-semibold tracking-wider text-neutral-400/80 flex justify-between">
-                    <span>Oranienburg</span>
-                    <span>Strausberg</span>
-                  </div>
-                </div>
-
-                {/* Map Footer Attribution */}
-                <div className="absolute bottom-1 right-2 z-10 text-[8px] text-neutral-400/80 pointer-events-none flex items-center gap-2">
-                  <span>Google</span>
-                  <span>Map data ©2026</span>
-                  <span className="underline">Report a map error</span>
-                </div>
               </div>
             </div>
 

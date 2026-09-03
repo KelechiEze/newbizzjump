@@ -207,7 +207,7 @@ export const FlowAndStudioSection = ({
           {/* Center: Mission Statement */}
           <div className="col-span-12 md:col-span-8 lg:col-span-7">
             <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal text-neutral-950 leading-[1.3] tracking-tight mb-8">
-              We're a small team in Berlin doing thoughtful design work for brands that want to stand out. No big agency overhead, no unnecessary process, just clear strategic thinking and truly honest execution.
+              We're a small team doing thoughtful design work for brands that want to stand out. No big agency overhead, no unnecessary process, just clear strategic thinking and truly honest execution.
             </h3>
 
             {/* Action Buttons: ABOUT THE STUDIO (Citron Green to Deep Purple) | OUR WORK ↗ */}

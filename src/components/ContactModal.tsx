@@ -49,7 +49,7 @@ export const ContactModal = ({ isOpen, onClose, onOpenStartProject }: ContactMod
                 COMMUNICATION DESK • 3H RESPONSE
               </span>
               <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-neutral-950 uppercase">
-                Contact Das Studio
+                Contact BIZZJUMP
               </h3>
             </div>
             <button
@@ -71,10 +71,10 @@ export const ContactModal = ({ isOpen, onClose, onOpenStartProject }: ContactMod
                     Contact BIZZJUMP
                   </span>
                   <a
-                    href="mailto:INFO@DASSTUDIO.COM"
+                    href="mailto:support@bizzjump.com"
                     className="text-xs font-bold text-neutral-950 hover:underline"
                   >
-                    INFO@DASSTUDIO.COM
+                    support@bizzjump.com
                   </a>
                 </div>
               </div>

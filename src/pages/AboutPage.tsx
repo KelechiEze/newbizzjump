@@ -181,7 +181,7 @@ export const AboutPage = ({ onOpenStartProject }: AboutPageProps) => {
             </div>
           </motion.div>
 
-          {/* Subtext Grid: BASED IN BERLIN vs Description */}
+          {/* Subtext Grid: Global Studio vs Description */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -191,7 +191,7 @@ export const AboutPage = ({ onOpenStartProject }: AboutPageProps) => {
             <div className="md:col-span-6">
               <span className="text-xs sm:text-sm font-bold tracking-[0.15em] uppercase text-neutral-900 flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-neutral-900" />
-                BASED IN BERLIN
+                WORKING WORLDWIDE
               </span>
             </div>
             <div className="md:col-span-6 flex justify-start md:justify-end">
@@ -264,7 +264,7 @@ export const AboutPage = ({ onOpenStartProject }: AboutPageProps) => {
                 transition={{ duration: 0.7, delay: 0.2 }}
                 className="text-lg sm:text-2xl md:text-3xl text-neutral-900 font-normal leading-relaxed tracking-tight"
               >
-                We're a small studio based in Berlin, working with clients around the world. We don't follow trends or chase awards. We focus on solving real problems through design, strategy, and clear communication.
+                We're a small studio working with clients around the world. We don't follow trends or chase awards. We focus on solving real problems through design, strategy, and clear communication.
               </motion.p>
             </div>
 
