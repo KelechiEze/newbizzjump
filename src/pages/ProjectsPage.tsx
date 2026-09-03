@@ -1,33 +1,15 @@
-import { useState } from 'react';
 import { motion } from 'motion/react';
-import { ArrowUpRight, Search } from 'lucide-react';
-import { PROJECTS } from '../data/projectsData';
+import { ArrowUpRight } from 'lucide-react';
+import { PROJECTS, PROJECT_PAGE_PROJECTS } from '../data/projectsData';
 import { Project } from '../types';
 import { CarouselSection } from '../components/CarouselSection';
-import { ProjectsGridSection } from '../components/ProjectsGridSection';
 
 interface ProjectsPageProps {
   onSelectProject: (project: Project) => void;
   onOpenStartProject: () => void;
 }
 
-const CATEGORIES: string[] = [
-  'All',
-  'Art Direction',
-  'Branding',
-  'Product Design',
-  '3D & Motion',
-  'Fashion',
-  'Packaging',
-  'Editorial',
-  'Campaign',
-  'Digital',
-];
-
 export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPageProps) => {
-  const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-
   const handleProjectSelect = (project: Project) => {
     if (project.website) {
       window.location.assign(project.website);
@@ -36,21 +18,15 @@ export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPa
     }
   };
 
-  const filteredProjects = PROJECTS.filter((proj) => {
-    const matchesCategory =
-      activeCategory === 'All' ||
-      proj.category === activeCategory ||
-      proj.tag === activeCategory;
-    const matchesSearch =
-      proj.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      proj.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      proj.shortDesc.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
   return (
     <div className="w-full bg-[#fcfbf9] text-neutral-950 pb-28 select-none">
-      {/* 1. Header Hero */}
+      {/* 1. Landing Page Project Slider */}
+      <CarouselSection
+        projects={PROJECTS}
+        onSelectProject={handleProjectSelect}
+      />
+
+      {/* 2. Header Hero */}
       <section className="w-full px-6 sm:px-10 md:px-14 lg:px-20 pt-10 sm:pt-14 md:pt-20 pb-8 sm:pb-12">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6 md:gap-12">
           <div>
@@ -69,67 +45,11 @@ export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPa
         </div>
       </section>
 
-      {/* 2. Interactive Infinite Carousel (Exact Landing Page Component Clone) */}
-      <div className="w-full">
-        <CarouselSection
-          projects={PROJECTS}
-          onSelectProject={handleProjectSelect}
-        />
-      </div>
-
-      {/* 3. Filter & Search Controls Bar */}
-      <section className="w-full px-6 sm:px-10 md:px-14 lg:px-20 py-8 sticky top-20 z-20 bg-[#fcfbf9]/90 backdrop-blur-md border-y border-neutral-200/80 my-4">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          {/* Categories Pill Scroll */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-none">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all duration-200 whitespace-nowrap cursor-pointer ${
-                  activeCategory === cat
-                    ? 'bg-neutral-950 text-white shadow-xs'
-                    : 'bg-neutral-100/90 text-neutral-700 hover:bg-neutral-200'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Search Archive Input */}
-          <div className="relative w-full sm:w-72">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-400" />
-            <input
-              type="text"
-              placeholder="Search projects..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-full bg-neutral-100/80 border border-neutral-200/80 text-xs font-medium placeholder-neutral-400 focus:outline-hidden focus:border-neutral-900 transition-colors"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Filtered Archive Grid */}
+      {/* 3. Projects Archive Grid */}
       <section className="w-full px-6 sm:px-10 md:px-14 lg:px-20 py-10 sm:py-16">
         <div className="max-w-7xl mx-auto">
-          {filteredProjects.length === 0 ? (
-            <div className="text-center py-20 bg-neutral-100/60 rounded-xl border border-neutral-200">
-              <p className="text-base text-neutral-600 font-medium">No projects found matching your criteria.</p>
-              <button
-                onClick={() => {
-                  setActiveCategory('All');
-                  setSearchQuery('');
-                }}
-                className="mt-4 px-6 py-2.5 bg-neutral-950 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 cursor-pointer"
-              >
-                Reset Filters
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
-              {filteredProjects.map((project, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
+              {PROJECT_PAGE_PROJECTS.map((project, idx) => (
                 <motion.div
                   key={project.id}
                   initial={{ opacity: 0, y: 15 }}
@@ -187,19 +107,11 @@ export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPa
                   </div>
                 </motion.div>
               ))}
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
-      {/* 5. Cloned Showcase Grid Section */}
-      <ProjectsGridSection
-        projects={PROJECTS}
-        onSelectProject={onSelectProject}
-        onOpenProjectsArchive={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      />
-
-      {/* 6. Bottom Tailored CTA Strip */}
+      {/* 4. Bottom Tailored CTA Strip */}
       <section className="w-full px-6 sm:px-10 md:px-14 lg:px-20 pt-10">
         <div className="max-w-7xl mx-auto bg-[#181a33] text-white rounded-xs p-10 sm:p-14 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>

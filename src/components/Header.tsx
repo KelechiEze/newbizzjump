@@ -27,29 +27,8 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
         />
       </Link>
 
-      {/* Desktop Navigation Links: ABOUT, PROJECTS, SERVICES, CONTACT ↗ */}
+      {/* Desktop Navigation Links: PROJECTS, ABOUT, SERVICES, CONTACT ↗ */}
       <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-[13px] font-bold tracking-[0.08em] uppercase text-neutral-800">
-        <NavLink
-          to="/about"
-          className={({ isActive }) =>
-            `hover:text-neutral-500 transition-colors py-1 cursor-pointer relative group ${
-              isActive ? 'text-neutral-950 font-black' : ''
-            }`
-          }
-          id="nav-about"
-        >
-          {({ isActive }) => (
-            <>
-              <span>ABOUT</span>
-              <span
-                className={`absolute bottom-0 left-0 h-[1.5px] bg-neutral-900 transition-all duration-200 ${
-                  isActive ? 'w-full' : 'w-0 group-hover:w-full'
-                }`}
-              ></span>
-            </>
-          )}
-        </NavLink>
-
         <NavLink
           to="/projects"
           className={({ isActive }) =>
@@ -62,6 +41,27 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
           {({ isActive }) => (
             <>
               <span>PROJECTS</span>
+              <span
+                className={`absolute bottom-0 left-0 h-[1.5px] bg-neutral-900 transition-all duration-200 ${
+                  isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                }`}
+              ></span>
+            </>
+          )}
+        </NavLink>
+
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            `hover:text-neutral-500 transition-colors py-1 cursor-pointer relative group ${
+              isActive ? 'text-neutral-950 font-black' : ''
+            }`
+          }
+          id="nav-about"
+        >
+          {({ isActive }) => (
+            <>
+              <span>ABOUT</span>
               <span
                 className={`absolute bottom-0 left-0 h-[1.5px] bg-neutral-900 transition-all duration-200 ${
                   isActive ? 'w-full' : 'w-0 group-hover:w-full'
@@ -127,18 +127,18 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
             className="absolute top-full left-0 w-full bg-[#fcfbf9]/95 backdrop-blur-md border-b border-neutral-200 py-6 px-8 shadow-xl md:hidden flex flex-col gap-5 text-sm font-bold tracking-wider uppercase z-50"
           >
             <NavLink
-              to="/about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="text-left py-2 hover:text-neutral-500"
-            >
-              About
-            </NavLink>
-            <NavLink
               to="/projects"
               onClick={() => setMobileMenuOpen(false)}
               className="text-left py-2 hover:text-neutral-500"
             >
               Projects
+            </NavLink>
+            <NavLink
+              to="/about"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-left py-2 hover:text-neutral-500"
+            >
+              About
             </NavLink>
             <NavLink
               to="/services"

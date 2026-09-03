@@ -273,6 +273,27 @@ export const PROJECTS: Project[] = [
   },
 ];
 
+const PROJECT_PAGE_IMAGE_DATA = [
+  { title: 'KEVIN', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Kevin.avif' },
+  { title: 'LOGISTICIS', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Logisticis.avif' },
+  { title: 'SORO', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Soro.avif' },
+  { title: 'SU', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/SU%20.avif' },
+  { title: 'SUPERBLOCK', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/superblock.avif' },
+  { title: 'TONY', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/tony.avif' },
+  { title: 'WORLD CUP', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/world%20Cup.avif' },
+  { title: 'HOSPIC', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Hospic.avif' },
+] as const;
+
+export const PROJECT_PAGE_PROJECTS: Project[] = PROJECT_PAGE_IMAGE_DATA.map((item, index) => ({
+  ...PROJECTS[index],
+  title: item.title,
+  client: item.title,
+  category: 'Digital',
+  tag: 'WEB DESIGN',
+  image: item.image,
+  website: undefined,
+}));
+
 export const APPROACH_STEPS: ApproachStep[] = [
   {
     number: '01',
