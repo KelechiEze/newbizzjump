@@ -117,8 +117,8 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/2.avif"
-                alt="Brand collaboration 2"
+                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/5.avif"
+                alt="Brand collaboration 5"
                 referrerPolicy="no-referrer"
                 className="max-w-full max-h-36 w-auto h-auto object-contain"
               />
@@ -183,8 +183,8 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/5.avif"
-                alt="Brand collaboration 5"
+                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/2.avif"
+                alt="Brand collaboration 2"
                 referrerPolicy="no-referrer"
                 className="max-w-full max-h-36 w-auto h-auto object-contain"
               />

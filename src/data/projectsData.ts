@@ -1,6 +1,6 @@
 import { Project, ApproachStep, JournalArticle, CreatorMember } from '../types';
 
-export const PROJECTS: Project[] = [
+const CORE_PROJECTS: Project[] = [
   {
     id: 'annie-editorial',
     title: "ANNIE'S BEAUTY",
@@ -271,6 +271,58 @@ export const PROJECTS: Project[] = [
       { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop', caption: 'Steel facade signage and wayfinding.' },
     ],
   },
+];
+
+const createSupplementalProject = (id: string, title: string, image: string): Project => ({
+  id,
+  title,
+  client: title,
+  category: 'Digital',
+  year: '2025',
+  image,
+  accentColor: '#dbfa07',
+  badge: 'Web Design',
+  shortDesc: `Web design for ${title}.`,
+  fullDesc: `A focused web design project for ${title}, shaped around clear visual direction and a memorable digital experience.`,
+  challenge: 'Create a distinctive digital presence with a clear visual hierarchy and confident identity.',
+  solution: 'Developed a responsive web experience with focused art direction, strong typography, and a considered interaction system.',
+  deliverables: ['Web Design', 'Art Direction', 'Responsive Experience'],
+  metrics: [
+    { label: 'Project Scope', value: 'Web Design' },
+    { label: 'Experience', value: 'Responsive' },
+    { label: 'Delivery', value: 'Launch Ready' },
+  ],
+  palette: [
+    { name: 'Studio Lime', hex: '#DBFA07' },
+    { name: 'Deep Navy', hex: '#181A33' },
+    { name: 'Soft White', hex: '#FCFBF9' },
+    { name: 'Graphite', hex: '#242424' },
+  ],
+  gallery: [{ url: image, caption: `${title} web design project.` }],
+});
+
+export const PROJECTS: Project[] = [
+  ...CORE_PROJECTS,
+  createSupplementalProject(
+    'kevin-hart',
+    'Kevin Hart',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Kevin.avif',
+  ),
+  createSupplementalProject(
+    'streamer-u',
+    'Streamer U',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/SU%20.avif',
+  ),
+  createSupplementalProject(
+    'superblock',
+    'Superblock',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/superblock.avif',
+  ),
+  createSupplementalProject(
+    'world-cup',
+    'World Cup',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/world%20Cup.avif',
+  ),
 ];
 
 const PROJECT_PAGE_IMAGE_DATA = [
