@@ -93,16 +93,13 @@ export const WhoWeAreSection = ({
             className="group relative bg-[#f5f4f0] hover:bg-[#f0eee8] rounded-2xl p-8 sm:p-10 min-h-[190px] sm:min-h-[220px] md:min-h-[240px] flex items-center justify-center transition-all duration-300 border border-neutral-200/60 shadow-xs hover:shadow-md cursor-pointer overflow-hidden"
             id="brand-card-uilogos"
           >
-            <div className="flex items-center gap-3 transition-transform duration-300 group-hover:scale-105">
-              {/* Heart logo icon */}
-              <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-neutral-900 flex items-center justify-center text-white shadow-xs">
-                <svg className="w-5 h-5 sm:w-6 sm:h-6 fill-white" viewBox="0 0 24 24">
-                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                </svg>
-              </div>
-              <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-neutral-900">
-                uilogos
-              </span>
+            <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+              <img
+                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Lola%20logo.avif"
+                alt="Lola Shoneyin logo"
+                referrerPolicy="no-referrer"
+                className="max-w-full max-h-36 w-auto h-auto object-contain"
+              />
             </div>
             <div className="absolute bottom-3 right-4 text-[10px] uppercase font-bold tracking-widest text-neutral-400 opacity-0 group-hover:opacity-100 transition-opacity">
               UI System & Brand
