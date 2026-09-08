@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+  }
+  
+  h1, h2, h3, .font-display {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    letter-spacing: -0.04em;
+    font-weight: 700;
+    transform: scale(0.97);
+    transform-origin: left center;
+  }
+
+  h4, h5, h6 {
+    font-weight: 600;
+    transform: scale(0.97);
+    transform-origin: left center;
+    font-size: 22px;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 16px;
+  }
+  
+  .font-mono-clean {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+/* Custom scrollbar hiding and dragging utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth snapping for touch devices */
+.snap-inline-carousel {
+  scroll-snap-type: x mandatory;
+}
+.snap-inline-card {
+  scroll-snap-align: start;
+}
+

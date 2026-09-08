@@ -1,0 +1,17 @@
+{
+  "name": "BIZZJUMP",
+  "short_name": "BIZZJUMP",
+  "description": "Design, brand strategy, digital products, websites, and e-commerce experiences by BIZZJUMP.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fcfbf9",
+  "theme_color": "#fcfbf9",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

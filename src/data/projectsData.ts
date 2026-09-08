@@ -1,0 +1,464 @@
+import { Project, ApproachStep, JournalArticle, CreatorMember } from '../types';
+
+const CORE_PROJECTS: Project[] = [
+  {
+    id: 'annie-editorial',
+    title: "ANNIE'S BEAUTY",
+    client: "Annie's Beauty",
+    category: 'Web Design',
+    year: '2025',
+    duration: '4 weeks',
+    tag: 'WEB DESIGN',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Annie.avif',
+    website: 'https://anniesbeauty.shop/',
+    accentColor: '#d4a373',
+    badge: 'Web Design',
+    shortDesc: 'Ecommerce and web design for Annie\'s Beauty.',
+    fullDesc: 'A captivating high-contrast editorial and fashion campaign exploring timeless silhouette architecture, warm cinematic lighting, and modern European editorial typography.',
+    challenge: 'Compose an arresting visual narrative that fuses classical haute couture elegance with minimalist contemporary digital aesthetics.',
+    solution: 'Engineered a bespoke art direction and typography system with calibrated monochromatic tones, rich textures, and responsive digital storytelling.',
+    deliverables: ['Creative Art Direction', 'Fashion Editorial Series', 'Brand Identity', 'Digital Flagship Experience'],
+    metrics: [
+      { label: 'Global Reach', value: '3.6M' },
+      { label: 'Editorial Features', value: '5 Publications' },
+      { label: 'Engagement Rate', value: '+82%' },
+    ],
+    palette: [
+      { name: 'Warm Terracotta', hex: '#D4A373' },
+      { name: 'Deep Noir', hex: '#121214' },
+      { name: 'Silk Ivory', hex: '#F7F5F0' },
+      { name: 'Bronze Sand', hex: '#B08968' },
+    ],
+    gallery: [
+      { url: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Annie.avif', caption: 'Lead editorial portraiture study for Annie.' },
+      { url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop', caption: 'Dual-tone studio portraiture series.' },
+      { url: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=1200&auto=format&fit=crop', caption: 'High-fashion kinetic studio portrait series.' },
+    ],
+  },
+  {
+    id: 'lumen-void',
+    title: 'CADEMIE',
+    client: 'Cadiemie',
+    category: 'Branding',
+    year: '2025',
+    duration: '5 weeks',
+    tag: 'WEB DESIGN',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Cademie.avif',
+    website: 'https://cademie.org.uk/landing/',
+    video: 'https://res.cloudinary.com/hdwuzrzf/video/upload/v1787860193/6995327_Cyberpunk_Cyber_1920x1080.mp4',
+    accentColor: '#00b4d8',
+    badge: 'Web Design',
+    shortDesc: 'Web design for Cadiemie.',
+    fullDesc: 'A photographic and art direction study exploring high-velocity oceanic water surfaces, bright contrasting sports equipment, and crystal clear swell physics.',
+    challenge: 'Capture the vivid contrast between azure sea swell textures and geometric neon watercraft in natural tropical sunlight.',
+    solution: 'Shot an aerial drone and water-housing cinematography campaign with calibrated polarized color grading and editorial typography.',
+    deliverables: ['Creative Art Direction', 'Drone Cinematography', 'Global Visual Campaign', 'Brand Monograph'],
+    metrics: [
+      { label: 'Campaign Reach', value: '4.8M' },
+      { label: 'Editorial Awards', value: '3 Wins' },
+      { label: 'Social Engagement', value: '+74%' },
+    ],
+    palette: [
+      { name: 'Crystal Aqua', hex: '#00B4D8' },
+      { name: 'Coral Board', hex: '#FF5E5B' },
+      { name: 'Deep Cyan', hex: '#03045E' },
+      { name: 'Pure White Foam', hex: '#FFFFFF' },
+    ],
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1502680390469-be75c86b636f?q=80&w=1200&auto=format&fit=crop', caption: 'Lead aerial water photography with contrast board.' },
+      { url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop', caption: 'Coastal water light refraction study.' },
+      { url: 'https://images.unsplash.com/photo-1498654896293-37aacf113fd9?q=80&w=1200&auto=format&fit=crop', caption: 'Waterproof technical gear tag system.' },
+    ],
+  },
+  {
+    id: 'primary-form',
+    title: 'CIAS MODELS',
+    client: 'CIAS Models',
+    category: 'Shopify',
+    year: '2025',
+    duration: '4 weeks',
+    tag: 'WEB DESIGN',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Cias.avif',
+    website: 'https://www.ciasmodels.com/',
+    video: 'https://res.cloudinary.com/hdwuzrzf/video/upload/v1787860132/Y7gFBMR55ZjxtJCLlsAbQkdlls.mp4',
+    accentColor: '#d4a373',
+    badge: 'Web Design',
+    shortDesc: 'Web design for CIAS Models.',
+    fullDesc: 'An organic pebble-shaped hand-held beauty device that fits naturally in the palm. Engineered from bio-resin with silent ultrasonic mist actuation.',
+    challenge: 'Merge industrial ergonomics with delicate cosmetic ritual, eliminating angular edges in favor of stone-tumbled contours.',
+    solution: 'Prototyped 18 iterative palm casts in ceramic resin before finalizing the Norro monolithic vessel with laser-debossed branding.',
+    deliverables: ['Industrial Form Design', 'Packaging Architecture', 'Tactile Material Specs', 'E-Commerce Launch'],
+    metrics: [
+      { label: 'Pre-Order Volume', value: '28K Units' },
+      { label: 'Red Dot Award', value: 'Best of Best' },
+      { label: 'Customer Rating', value: '4.9 / 5.0' },
+    ],
+    palette: [
+      { name: 'Warm Clay', hex: '#D4A373' },
+      { name: 'Pure Ceramic', hex: '#F4F1EA' },
+      { name: 'Charcoal Noir', hex: '#1C1C1E' },
+      { name: 'Subtle Rose', hex: '#E8D5D0' },
+    ],
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=1200&auto=format&fit=crop', caption: 'Ergonomic palm mist dispenser in ceramic white.' },
+      { url: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=1200&auto=format&fit=crop', caption: 'Tactile cosmetic dispenser suite.' },
+      { url: 'https://images.unsplash.com/photo-1608248597359-0a67975e5330?q=80&w=1200&auto=format&fit=crop', caption: 'Laser-etched bottle and packaging.' },
+    ],
+  },
+  {
+    id: 'luma-wood',
+    title: 'DIBIRE',
+    client: 'Dibire',
+    category: 'Ecommerce',
+    year: '2025',
+    duration: '2 weeks',
+    tag: 'WEB DESIGN',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Dibire.avif',
+    website: 'https://dibire.com/',
+    video: 'https://res.cloudinary.com/hdwuzrzf/video/upload/v1787860638/cfswkeB0BMGJhJ7eQEPa0QMZhg.mp4',
+    accentColor: '#c9a66b',
+    badge: 'Web Design',
+    shortDesc: 'Ecommerce and web design for Dibire.',
+    fullDesc: 'A sculptural arch light crafted from single-piece steam-bent Scandinavian white oak and hand-blown frosted glass sphere with wireless dimming touch sensors.',
+    challenge: 'Manufacture an unbroken wood arch with hidden internal wiring channel and seamless magnetic base locking mechanism.',
+    solution: 'Engineered a multi-axis CNC bent laminate process with integrated capacitive dimming touch strip embedded flush beneath the wood grain.',
+    deliverables: ['Product Architecture', 'Hardware Engineering Specs', 'Retail Packaging', 'Motion 3D Visualizer'],
+    metrics: [
+      { label: 'Manufacturing Efficiency', value: '+40%' },
+      { label: 'Milan Design Week', value: 'Honoree' },
+      { label: 'Retail Sell-Through', value: '94%' },
+    ],
+    palette: [
+      { name: 'Scandinavian Oak', hex: '#C9A66B' },
+      { name: 'Frosted Opal', hex: '#F8F9FA' },
+      { name: 'Warm Tungsten', hex: '#FFB703' },
+      { name: 'Raw Brass', hex: '#D4AF37' },
+    ],
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1200&auto=format&fit=crop', caption: 'Luma Wood desk lamp in natural oak.' },
+      { url: 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?q=80&w=1200&auto=format&fit=crop', caption: 'Wood grain curvature and ambient light study.' },
+      { url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop', caption: 'Interior placement and ambient room warmth.' },
+    ],
+  },
+  {
+    id: 'silence-studio',
+    title: 'GTA VI',
+    client: 'GTA VI Concept',
+    category: 'Branding',
+    year: '2025',
+    duration: '3 weeks',
+    tag: 'CONCEPT WEB DESIGN',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/GTA.avif',
+    website: 'https://gta6oiledup.netlify.app/',
+    accentColor: '#f72585',
+    badge: 'Concept Web Design',
+    shortDesc: 'Concept web design for GTA VI.',
+    fullDesc: 'Sensual, chromatic macro portraiture capturing high-frequency light dispersion on radiant skin. Built for luxury beauty campaigns across digital and print billboards.',
+    challenge: 'Communicate ethereal luminous shimmer with microscopic textural fidelity that breaks through conventional beauty monotony.',
+    solution: 'Executed a macro prism photography session paired with fluid typographic overlays, bespoke packaging foils, and responsive web micro-interactions.',
+    deliverables: ['Global Brand Identity', 'Macro Beauty Art Direction', 'Luxury Packaging Suite', 'Interactive Web Storefront'],
+    metrics: [
+      { label: 'Global Video Views', value: '14.2M' },
+      { label: 'D2C Conversion', value: '+46%' },
+      { label: 'D&AD Pencil', value: 'Wood Winner' },
+    ],
+    palette: [
+      { name: 'Prismatic Pink', hex: '#F72585' },
+      { name: 'Gloss Magenta', hex: '#7209B7' },
+      { name: 'Dewy Skin', hex: '#FFE5D9' },
+      { name: 'Diamond Glitter', hex: '#FFFFFF' },
+    ],
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=1200&auto=format&fit=crop', caption: 'Macro beauty portrait with chromatic glitter highlights.' },
+      { url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1200&auto=format&fit=crop', caption: 'Dual-tone studio portraiture series.' },
+      { url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?q=80&w=1200&auto=format&fit=crop', caption: 'Glitter formula packaging and swatch study.' },
+    ],
+  },
+  {
+    id: 'idea-forge-lightbulb',
+    title: 'LOLA SHONEYIN',
+    client: 'Lola Shoneyin',
+    category: 'Web Design',
+    year: '2025',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Lola.avif',
+    accentColor: '#e09f3e',
+    tag: 'WEB DESIGN',
+    badge: 'Web Design',
+    shortDesc: 'Web design for Lola Shoneyin.',
+    website: 'https://lolashoneyin.com/',
+    fullDesc: 'A textured, tactile 3D visual exploration of human curiosity and creative spark. Designed as the flagship visual identity for an innovation venture incubator.',
+    challenge: 'Avoid tired cliché lightbulb visuals by reinventing the metaphor into tactile stone, warm diffused glow, and cast-shadow geometry.',
+    solution: 'Crafted 40+ modular procedural 3D assets with physically-based stippled materials, warm tungsten illumination, and smooth micro-interactive web shaders.',
+    deliverables: ['3D Asset Library', 'Interactive WebGL Elements', 'Motion Design System', 'Keynote Visual Assets'],
+    metrics: [
+      { label: 'Engagement Rate', value: '78%' },
+      { label: 'Assets Delivered', value: '45' },
+      { label: 'Site of the Day', value: 'FWA & Awwwards' },
+    ],
+    palette: [
+      { name: 'Amber Glow', hex: '#E09F3E' },
+      { name: 'Mustard Ochre', hex: '#D4A373' },
+      { name: 'Deep Spruce', hex: '#335C67' },
+      { name: 'Paper Cream', hex: '#FFF3B0' },
+    ],
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?q=80&w=1200&auto=format&fit=crop', caption: 'Glowing concept lamp illustration.' },
+      { url: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=1200&auto=format&fit=crop', caption: 'Architectural geometry & light interaction study.' },
+      { url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1200&auto=format&fit=crop', caption: 'Tactile stipple shadow rendering.' },
+    ],
+  },
+  {
+    id: 'pure-fizz-seltzer',
+    title: 'RAD',
+    client: 'Rad',
+    category: 'Shopify',
+    year: '2025',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Rad.avif',
+    accentColor: '#90e0ef',
+    tag: 'WEB DESIGN',
+    badge: 'Web Design',
+    shortDesc: 'Ecommerce and web design for Rad.',
+    website: 'https://rad.ng/',
+    fullDesc: 'Ultra-pure sparkling water sourced from Norwegian glaciers. The packaging embodies pure coldness with tactile raised-droplet varnish and minimal typography.',
+    challenge: 'Differentiate from sugary sodas and mass-market seltzers by emphasizing pristine purity and tactile temperature cues.',
+    solution: 'Pioneered a custom cold-touch matte aluminum finish with UV gloss condensation beads and a sleek slimline 330ml form factor.',
+    deliverables: ['Structural Can Design', 'Flavor Range Architecture', 'Retail Shelf Presence', 'Launch Campaign'],
+    metrics: [
+      { label: 'Supermarket Distribution', value: '1,400+ Stores' },
+      { label: 'Brand Recall', value: '89%' },
+      { label: 'Beverage Packaging Award', value: '1st Place' },
+    ],
+    palette: [
+      { name: 'Glacial Ice', hex: '#90E0EF' },
+      { name: 'Arctic Aluminum', hex: '#D8E2DC' },
+      { name: 'Deep Frost', hex: '#0077B6' },
+      { name: 'Pure Water', hex: '#F0F8FF' },
+    ],
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1200&auto=format&fit=crop', caption: 'Condensation-beaded slim aluminum can.' },
+      { url: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=1200&auto=format&fit=crop', caption: 'Sparkling bubbles in macro high-speed photography.' },
+      { url: 'https://images.unsplash.com/photo-1527661591475-527312dd65f5?q=80&w=1200&auto=format&fit=crop', caption: 'Complete 6-pack carrier box system.' },
+    ],
+  },
+  {
+    id: 'bauhaus-monolith',
+    title: 'Talkglam Studios',
+    client: 'Talk Glam Studios',
+    category: 'Ecommerce',
+    year: '2025',
+    image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/Talkglam.avif',
+    website: 'https://talkglamstudios.com/',
+    accentColor: '#2b2d42',
+    tag: 'CONCEPT WEB DESIGN',
+    badge: 'Concept Web Design',
+    shortDesc: 'Brutalist architecture identity, physical monographs, and spatial signage.',
+    fullDesc: 'Timeless architectural monograph and signage system designed for Berlin-based studio Monolith. Defined by concrete materiality, strict grids, and unyielding proportions.',
+    challenge: 'Express radical architectural discipline while remaining deeply inviting and humanistic in client touchpoints.',
+    solution: 'Constructed an architectural visual system using laser-cut anodized raw steel plates, raw board debossing, and grid-based digital portfolios.',
+    deliverables: ['Wayfinding System', 'Monograph Publishing', 'Interactive Archival Website', 'Studio Stationery'],
+    metrics: [
+      { label: 'Completed Works', value: '38 Buildings' },
+      { label: 'Design Excellence', value: 'Mies van der Rohe Nominee' },
+      { label: 'Press Features', value: '45+' },
+    ],
+    palette: [
+      { name: 'Raw Concrete', hex: '#8D99AE' },
+      { name: 'Anodized Steel', hex: '#2B2D42' },
+      { name: 'Limestone Chalk', hex: '#EDF2F4' },
+      { name: 'Ochre Accent', hex: '#D90429' },
+    ],
+    gallery: [
+      { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1200&auto=format&fit=crop', caption: 'Brutalist concrete residence architectural shot.' },
+      { url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1200&auto=format&fit=crop', caption: 'Interior shadow and light geometry.' },
+      { url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop', caption: 'Steel facade signage and wayfinding.' },
+    ],
+  },
+];
+
+const createSupplementalProject = (id: string, title: string, image: string, category: string): Project => ({
+  id,
+  title,
+  client: title,
+  category,
+  year: '2025',
+  image,
+  accentColor: '#dbfa07',
+  tag: 'CONCEPT WEB DESIGN',
+  badge: 'Concept Web Design',
+  shortDesc: `Web design for ${title}.`,
+  fullDesc: `A focused web design project for ${title}, shaped around clear visual direction and a memorable digital experience.`,
+  challenge: 'Create a distinctive digital presence with a clear visual hierarchy and confident identity.',
+  solution: 'Developed a responsive web experience with focused art direction, strong typography, and a considered interaction system.',
+  deliverables: ['Web Design', 'Art Direction', 'Responsive Experience'],
+  metrics: [
+    { label: 'Project Scope', value: 'Web Design' },
+    { label: 'Experience', value: 'Responsive' },
+    { label: 'Delivery', value: 'Launch Ready' },
+  ],
+  palette: [
+    { name: 'Studio Lime', hex: '#DBFA07' },
+    { name: 'Deep Navy', hex: '#181A33' },
+    { name: 'Soft White', hex: '#FCFBF9' },
+    { name: 'Graphite', hex: '#242424' },
+  ],
+  gallery: [{ url: image, caption: `${title} web design project.` }],
+});
+
+export const PROJECTS: Project[] = [
+  ...CORE_PROJECTS,
+  createSupplementalProject(
+    'kevin-hart',
+    'Kevin Hart',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Kevin.avif',
+    'Web Design',
+  ),
+  createSupplementalProject(
+    'streamer-u',
+    'Streamer U',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/SU%20.avif',
+    'Branding',
+  ),
+  createSupplementalProject(
+    'superblock',
+    'Superblock',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/superblock.avif',
+    'Shopify',
+  ),
+  createSupplementalProject(
+    'world-cup',
+    'World Cup',
+    'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/world%20Cup.avif',
+    'Ecommerce',
+  ),
+];
+
+const PROJECT_PAGE_IMAGE_DATA = [
+  { title: 'KEVIN', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Kevin.avif' },
+  { title: 'LOGISTICIS', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Logisticis.avif' },
+  { title: 'SORO', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Soro.avif' },
+  { title: 'SU', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/SU%20.avif' },
+  { title: 'SUPERBLOCK', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/superblock.avif' },
+  { title: 'TONY', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/tony.avif' },
+  { title: 'WORLD CUP', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/world%20Cup.avif' },
+  { title: 'HOSPIC', image: 'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Hospic.avif' },
+] as const;
+
+export const PROJECT_PAGE_PROJECTS: Project[] = PROJECT_PAGE_IMAGE_DATA.map((item, index) => ({
+  ...PROJECTS[index],
+  title: item.title,
+  client: item.title,
+  category: ['Web Design', 'Branding', 'Shopify', 'Ecommerce'][index % 4],
+  tag: 'WEB DESIGN',
+  image: item.image,
+  website: undefined,
+}));
+
+export const APPROACH_STEPS: ApproachStep[] = [
+  {
+    number: '01',
+    title: 'Deep Immersion & Diagnostic',
+    timeline: 'Week 1 - 2',
+    subtitle: 'Uncovering the authentic truth behind your brand.',
+    description: 'We conduct intensive stakeholder interviews, competitor matrix deconstruction, and audience psychology analysis to identify your unfair strategic advantage.',
+    keyActivities: [
+      'Category gap mapping & perceptual positioning',
+      'Audience archetype & friction point interviews',
+      'Brand DNA and cultural relevance audit',
+      'Technical constraint & scale feasibility study'
+    ],
+    deliverables: ['Strategic Opportunity Dossier', 'Brand Positioning Matrix', 'Creative North Star Brief']
+  },
+  {
+    number: '02',
+    title: 'Strategic Architecture',
+    timeline: 'Week 3 - 4',
+    subtitle: 'Building the unshakeable foundation for creative execution.',
+    description: 'Transforming strategic insights into clear brand voice, value propositions, typographic hierarchy, and visual design principles.',
+    keyActivities: [
+      'Value proposition & verbal identity crafting',
+      'Information architecture & design tokens definition',
+      'Art direction moodboards & visual territory divergence',
+      'Rapid prototype validation'
+    ],
+    deliverables: ['Brand Narrative Blueprint', 'Visual Direction Territories (x3)', 'Design Token Specifications']
+  },
+  {
+    number: '03',
+    title: 'High-Craft Execution',
+    timeline: 'Week 5 - 8',
+    subtitle: 'Where strategy takes physical, tactile, and digital form.',
+    description: 'Iterating with microscopic attention to typography, motion physics, color balance, 3D assets, and interactive component libraries.',
+    keyActivities: [
+      'Bespoke logo mark & type system engineering',
+      '3D modeling, lighting, and tactile material shaders',
+      'Interactive design system component library',
+      'Production-ready packaging & print die-lines'
+    ],
+    deliverables: ['Complete Master Asset Suite', 'Interactive Design System', 'Production Guidelines & Source Files']
+  },
+  {
+    number: '04',
+    title: 'Scale & Longevity',
+    timeline: 'Week 9+',
+    subtitle: 'Ensuring your brand thrives and multiplies across every touchpoint.',
+    description: 'We orchestrate launch campaigns, train internal teams, and establish ongoing design governance to maintain aesthetic purity at scale.',
+    keyActivities: [
+      'Comprehensive brand portal & guidelines rollout',
+      'Team enablement workshops & template systems',
+      'Launch campaign orchestration & performance review',
+      'Quarterly design evolution governance'
+    ],
+    deliverables: ['Living Cloud Brand Portal', 'Figma & Code Component Kits', 'Launch Asset Package']
+  }
+];
+
+export const JOURNAL_ARTICLES: JournalArticle[] = [
+  {
+    id: 'swiss-modernism-2026',
+    title: 'Why Modernist Restraint is Outperforming Hyper-Maximalism',
+    category: 'Design Theory',
+    date: 'Aug 2026',
+    readTime: '4 min read',
+    excerpt: 'In an era of relentless algorithmic visual noise, ruthless typographic discipline and high-contrast negative space are becoming the ultimate status symbols for ambitious brands.',
+    tags: ['Typography', 'Brand Strategy', 'Minimalism'],
+    content: [
+      'For the past five years, digital branding was flooded with generic pastel gradients and copy-paste illustration libraries. Consumers grew numb to the homogeny.',
+      'The brands capturing the highest valuation multiples today—from luxury goods to frontier tech—share a common denominator: rigorous Swiss modernist roots, uncompromising typography, and physical-world tactile presence.',
+      'When your typography is mathematically perfect and your negative space breathes with confidence, you communicate authority without having to yell.'
+    ]
+  },
+  {
+    id: 'tactile-materials-digital',
+    title: 'The Tactile Renaissance: Bridging Physical Packaging & Screen Interfaces',
+    category: 'Packaging & 3D',
+    date: 'Jul 2026',
+    readTime: '6 min read',
+    excerpt: 'How material physics, debossed paper stocks, and raytraced shaders create sensory continuity between the shelf and the smartphone.',
+    tags: ['Packaging', '3D Shaders', 'Sensory Design'],
+    content: [
+      'A brand does not live solely on Instagram or solely in a grocery aisle. True brand reverence occurs when the physical weight of an extruded aluminum bottle feels identical to the micro-haptics of its digital companion app.',
+      'We explore our material-first pipeline: from custom hemp paper pulps in Berlin to sub-millimeter normal maps in WebGL.'
+    ]
+  },
+  {
+    id: 'fast-turnaround-high-craft',
+    title: 'The 3-Hour Response Guarantee: How Our 23-Creator Studio Operates',
+    category: 'Studio Culture',
+    date: 'Jun 2026',
+    readTime: '3 min read',
+    excerpt: 'Eliminating bloated account management layers to connect founders directly with principal design craftspeople in real time.',
+    tags: ['Operations', 'Berlin Team', 'Efficiency'],
+    content: [
+      'Traditional agency models waste 70% of project budgets on account handlers, slide decks about slide decks, and endless sync meetings.',
+      'At Das Studio, our 23 creators operate in autonomous squads. Direct communication, zero middlemen, radical transparency.'
+    ]
+  }
+];
+
+export const CREATORS: CreatorMember[] = [
+  { name: 'Maximilian Vance', role: 'Founding Partner & Creative Director', location: 'Berlin / Mitte', specialty: 'Brand Architecture & Typography', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop' },
+  { name: 'Elena Rostova', role: 'Head of 3D & Spatial Computing', location: 'Berlin / Kreuzberg', specialty: 'Shader Engineering & Motion', avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop' },
+  { name: 'Lukas Meyer', role: 'Principal Brand Strategist', location: 'Berlin / Prenzlauer Berg', specialty: 'Category Positioning & Narrative', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop' },
+  { name: 'Aaliyah Chen', role: 'Design Systems Lead', location: 'Berlin / Neukölln', specialty: 'Component Architecture & Tokens', avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop' },
+  { name: 'Julian Thorne', role: 'Packaging & Materials Director', location: 'Berlin / Charlottenburg', specialty: 'Tactile Finishes & Sustainable Substrates', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop' },
+];
