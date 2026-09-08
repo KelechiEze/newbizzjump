@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+/* Netlify can inject its optional hosting badge at runtime. */
+#netlify-badge,
+.netlify-badge,
+[data-netlify-badge] {
+  display: none !important;
+}
+
 @layer base {
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;

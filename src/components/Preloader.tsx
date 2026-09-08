@@ -24,7 +24,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     const hideTimer = window.setTimeout(() => {
       setIsVisible(false);
       window.setTimeout(onComplete, 800);
-    }, 8000);
+    }, 5000);
 
     return () => window.clearTimeout(hideTimer);
   }, [onComplete]);
