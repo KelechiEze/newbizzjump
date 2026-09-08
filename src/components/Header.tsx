@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NavLink, Link } from 'react-router-dom';
@@ -9,12 +9,32 @@ interface HeaderProps {
 
 export const Header = ({ onOpenStartProject }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const handleOutsidePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (
+        !mobileMenuRef.current?.contains(target) &&
+        !mobileMenuButtonRef.current?.contains(target)
+      ) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handleOutsidePointerDown);
+    return () => document.removeEventListener('pointerdown', handleOutsidePointerDown);
+  }, [mobileMenuOpen]);
 
   return (
     <header className="w-full pt-8 pb-4 px-6 md:px-12 lg:px-16 flex items-center justify-between z-30 relative select-none">
       {/* Studio Logo */}
       <Link
         to="/"
+        onClick={() => setMobileMenuOpen(false)}
         className="group flex items-center gap-1.5 cursor-pointer transition-transform duration-200 active:scale-95"
         aria-label="BIZZJUMP Home"
         id="studio-logo"
@@ -109,6 +129,7 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
       {/* Mobile Menu Trigger */}
       <button
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        ref={mobileMenuButtonRef}
         className="md:hidden p-2 text-neutral-900 hover:bg-neutral-100 rounded-full transition-colors cursor-pointer"
         aria-label="Toggle menu"
         id="mobile-menu-btn"
@@ -124,6 +145,7 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
+            ref={mobileMenuRef}
             className="absolute top-full left-0 w-full bg-[#fcfbf9]/95 backdrop-blur-md border-b border-neutral-200 py-6 px-8 shadow-xl md:hidden flex flex-col gap-5 text-sm font-bold tracking-[0.03em] uppercase z-50"
           >
             <NavLink

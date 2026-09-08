@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 
@@ -62,6 +62,7 @@ const TESTIMONIALS: Testimonial[] = [
 
 export const TestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isMobileInteracting, setIsMobileInteracting] = useState(false);
   const testimonialVideoRef = useRef<HTMLVideoElement>(null);
   const carouselContainerRef = useRef<HTMLDivElement>(null);
 
@@ -72,6 +73,17 @@ export const TestimonialsSection = () => {
   const handleNext = () => {
     setCurrentIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
   };
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia('(max-width: 639px)');
+    const advanceOnMobile = () => {
+      if (!mobileQuery.matches || isMobileInteracting) return;
+      setCurrentIndex((prev) => (prev === TESTIMONIALS.length - 1 ? 0 : prev + 1));
+    };
+
+    const interval = window.setInterval(advanceOnMobile, 4200);
+    return () => window.clearInterval(interval);
+  }, [isMobileInteracting]);
 
   return (
     <section
@@ -114,6 +126,10 @@ export const TestimonialsSection = () => {
       {/* 2. Interactive Testimonials Carousel Track */}
       <div
         ref={carouselContainerRef}
+        onTouchStart={() => setIsMobileInteracting(true)}
+        onTouchEnd={() => setIsMobileInteracting(false)}
+        onMouseEnter={() => setIsMobileInteracting(true)}
+        onMouseLeave={() => setIsMobileInteracting(false)}
         className="relative w-full overflow-hidden"
       >
         <motion.div
