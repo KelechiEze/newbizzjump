@@ -18,6 +18,7 @@ import { JournalModal } from './components/JournalModal';
 import { AboutModal } from './components/AboutModal';
 import { ContactModal } from './components/ContactModal';
 import { ProjectsArchiveModal } from './components/ProjectsArchiveModal';
+import Preloader from './components/Preloader';
 import { PROJECTS } from './data/projectsData';
 import { Project } from './types';
 
@@ -191,8 +192,13 @@ function MainAppLayout() {
 }
 
 export default function App() {
+  const [isPreloaderVisible, setIsPreloaderVisible] = useState(true);
+
   return (
     <BrowserRouter>
+      {isPreloaderVisible && (
+        <Preloader onComplete={() => setIsPreloaderVisible(false)} />
+      )}
       <MainAppLayout />
     </BrowserRouter>
   );
