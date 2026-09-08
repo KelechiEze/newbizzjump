@@ -1,9 +1,13 @@
 @import "tailwindcss";
 
-/* Netlify can inject its optional hosting badge at runtime. */
+/* Hide optional hosting badges injected by deployment providers. */
 #netlify-badge,
 .netlify-badge,
-[data-netlify-badge] {
+[data-netlify-badge],
+[id*="netlify-badge" i],
+[class*="netlify-badge" i],
+iframe[src*="netlify.com" i][title*="badge" i],
+iframe[src*="netlify.app" i][title*="badge" i] {
   display: none !important;
 }
 
