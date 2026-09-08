@@ -20,6 +20,7 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
   const [activeIndex, setActiveIndex] = useState(0);
 
   const isNavigatingRef = useRef(false);
+  const isTouchingRef = useRef(false);
   const navTimeoutRef = useRef<number | null>(null);
 
   // We repeat projects 3 times to create a truly seamless infinite scroll track
@@ -105,8 +106,8 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
 
     const step = () => {
       const el = containerRef.current;
-      // Scroll continuously ONLY when not dragging, not paused by user, and not in active manual button navigation
-      if (el && !isDragging && !isPausedByUser && !isNavigatingRef.current) {
+      // Keep the ticker active on touch devices, pausing only while a finger is down.
+      if (el && !isDragging && !isPausedByUser && !isTouchingRef.current && !isNavigatingRef.current) {
         el.scrollLeft += speed;
         handleInfiniteScrollWrap();
       }
@@ -231,13 +232,13 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
           onTouchStart={() => {
-            isNavigatingRef.current = true;
+            isTouchingRef.current = true;
           }}
           onTouchEnd={() => {
-            if (navTimeoutRef.current) window.clearTimeout(navTimeoutRef.current);
-            navTimeoutRef.current = window.setTimeout(() => {
-              isNavigatingRef.current = false;
-            }, 1000);
+            isTouchingRef.current = false;
+          }}
+          onTouchCancel={() => {
+            isTouchingRef.current = false;
           }}
           className={`w-full overflow-x-auto no-scrollbar flex items-stretch gap-2 sm:gap-2.5 md:gap-3 px-6 md:px-12 lg:px-16 cursor-grab active:cursor-grabbing ${
             isDragging ? 'scroll-auto' : 'scroll-auto'

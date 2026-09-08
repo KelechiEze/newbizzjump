@@ -14,7 +14,7 @@ interface PhysicsSphere {
 
 const LOGO_URL = 'https://kelechieze.wordpress.com/wp-content/uploads/2026/08/yyu-1.png';
 const TOTAL_SPHERES = 25;
-const SPHERE_RADIUS = 0.28;
+const SPHERE_RADIUS = 0.18;
 
 export default function Preloader({ onComplete }: PreloaderProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,6 +35,9 @@ export default function Preloader({ onComplete }: PreloaderProps) {
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#ffffff');
+    const isMobile = window.matchMedia('(max-width: 639px)').matches;
+    const stageWidth = isMobile ? 5.8 : 8.2;
+    const wallPosition = isMobile ? 4.1 : 5.6;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -45,7 +48,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
     container.appendChild(renderer.domElement);
 
     const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 40);
-    camera.position.set(0, 1.5, 11);
+    camera.position.set(0, 1.5, isMobile ? 13.5 : 11);
     camera.lookAt(0, 0.1, 0);
 
     scene.add(new THREE.HemisphereLight(0xffffff, 0xe5e7eb, 1.25));
@@ -101,8 +104,8 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       wall.quaternion.setFromEuler(0, angle, 0);
       world.addBody(wall);
     };
-    addWall(-5.6, Math.PI / 2);
-    addWall(5.6, -Math.PI / 2);
+    addWall(-wallPosition, Math.PI / 2);
+    addWall(wallPosition, -Math.PI / 2);
 
     const sphereGeometry = new THREE.SphereGeometry(SPHERE_RADIUS, 28, 22);
     const spheres: PhysicsSphere[] = [];
@@ -129,7 +132,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         angularDamping: 0.05,
       });
       body.addShape(new CANNON.Sphere(SPHERE_RADIUS));
-      body.position.set((Math.random() - 0.5) * 8.2, 3.3 + Math.random() * 4.8, (Math.random() - 0.5) * 2.3);
+      body.position.set((Math.random() - 0.5) * stageWidth, 3.3 + Math.random() * 4.8, (Math.random() - 0.5) * 2.3);
       body.velocity.set((Math.random() - 0.5) * 1.4, -1.5 - Math.random() * 2, (Math.random() - 0.5) * 1.2);
       body.angularVelocity.set(Math.random() * 4, Math.random() * 4, Math.random() * 4);
       world.addBody(body);
@@ -181,7 +184,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         mesh.position.set(body.position.x, body.position.y, body.position.z);
         mesh.quaternion.set(body.quaternion.x, body.quaternion.y, body.quaternion.z, body.quaternion.w);
         if (body.position.y < -5 || Math.abs(body.position.x) > 8) {
-          body.position.set((Math.random() - 0.5) * 6, 5.5, 0);
+          body.position.set((Math.random() - 0.5) * stageWidth, 5.5, 0);
           body.velocity.set(0, -2, 0);
         }
       });
