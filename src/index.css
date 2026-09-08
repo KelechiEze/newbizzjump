@@ -6,6 +6,8 @@
 [data-netlify-badge],
 [id*="netlify-badge" i],
 [class*="netlify-badge" i],
+[aria-label*="powered by netlify" i],
+[title*="powered by netlify" i],
 iframe[src*="netlify.com" i][title*="badge" i],
 iframe[src*="netlify.app" i][title*="badge" i] {
   display: none !important;
@@ -58,4 +60,3 @@ iframe[src*="netlify.app" i][title*="badge" i] {
 .snap-inline-card {
   scroll-snap-align: start;
 }
-
