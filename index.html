@@ -3,36 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Primary SEO & Title -->
     <title>BIZZJUMP | Design, Brand Strategy & Digital Experiences</title>
+    <meta name="title" content="BIZZJUMP | Design, Brand Strategy & Digital Experiences" />
     <meta name="description" content="BIZZJUMP creates distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands." />
     <meta name="author" content="BIZZJUMP" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#fcfbf9" />
+    <meta name="keywords" content="BIZZJUMP, brand strategy, brand identity, web design, digital product design, e-commerce design, creative engineering" />
+
+    <!-- Google Search & Crawlers Directives -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://bizzjump.com/" />
+
+    <!-- Favicons for Google Search, mobile, and desktop -->
+    <meta name="theme-color" content="#fcfbf9" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.ico" />
     <link rel="manifest" href="/manifest.json" />
+
+    <!-- Open Graph / social preview -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="BIZZJUMP" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content="BIZZJUMP | Design, Brand Strategy & Digital Experiences" />
     <meta property="og:description" content="Distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands." />
     <meta property="og:url" content="https://bizzjump.com/" />
     <meta property="og:image" content="https://bizzjump.com/favicon.ico" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image:secure_url" content="https://bizzjump.com/favicon.ico" />
+    <meta property="og:image:type" content="image/x-icon" />
+    <meta property="og:image:alt" content="BIZZJUMP logo" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://bizzjump.com/" />
     <meta name="twitter:title" content="BIZZJUMP | Design, Brand Strategy & Digital Experiences" />
     <meta name="twitter:description" content="Distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands." />
     <meta name="twitter:image" content="https://bizzjump.com/favicon.ico" />
+    <meta name="twitter:image:alt" content="BIZZJUMP logo" />
+    <meta name="image" content="https://bizzjump.com/favicon.ico" />
+
+    <!-- Comprehensive Schema.org Structured Data for Google Rich Results -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "BIZZJUMP",
-        "url": "https://bizzjump.com/",
-        "logo": "https://bizzjump.com/favicon.ico",
-        "email": "support@bizzjump.com",
-        "description": "BIZZJUMP creates distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands.",
-        "sameAs": []
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://bizzjump.com/#website",
+            "url": "https://bizzjump.com/",
+            "name": "BIZZJUMP",
+            "description": "BIZZJUMP creates distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands.",
+            "publisher": {
+              "@id": "https://bizzjump.com/#organization"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://bizzjump.com/#webpage",
+            "url": "https://bizzjump.com/",
+            "name": "BIZZJUMP | Design, Brand Strategy & Digital Experiences",
+            "isPartOf": {
+              "@id": "https://bizzjump.com/#website"
+            },
+            "about": {
+              "@id": "https://bizzjump.com/#organization"
+            },
+            "description": "BIZZJUMP creates distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands.",
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "https://bizzjump.com/favicon.ico",
+              "caption": "BIZZJUMP"
+            },
+            "thumbnailUrl": "https://bizzjump.com/favicon.ico"
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://bizzjump.com/#organization",
+            "name": "BIZZJUMP",
+            "url": "https://bizzjump.com/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://bizzjump.com/favicon.ico"
+            },
+            "email": "support@bizzjump.com",
+            "description": "BIZZJUMP creates distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands.",
+            "sameAs": [
+              "https://www.linkedin.com/company/bizzjump-agency/"
+            ]
+          }
+        ]
       }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
