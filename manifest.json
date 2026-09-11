@@ -1,7 +1,7 @@
 {
   "name": "BIZZJUMP",
   "short_name": "BIZZJUMP",
-  "description": "Design, brand strategy, digital products, websites, and e-commerce experiences by BIZZJUMP.",
+  "description": "BIZZJUMP creates distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,8 +10,9 @@
   "icons": [
     {
       "src": "/favicon.ico",
-      "sizes": "any",
-      "type": "image/x-icon"
+      "sizes": "32x32",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
     }
   ]
 }
