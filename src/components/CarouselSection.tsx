@@ -73,14 +73,18 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
     if (singleSetWidth <= 0) return;
 
     if (el.scrollLeft >= singleSetWidth * 2) {
+      // Reached the 3rd set, seamlessly reset back to 2nd set without flash
       el.scrollLeft -= singleSetWidth;
     } else if (el.scrollLeft <= 0) {
+      // Reached the 1st set, seamlessly reset forward to 2nd set
       el.scrollLeft += singleSetWidth;
     }
 
+    // Calculate normalized progress (0 to 1 across single set)
     const normalizedScroll = (el.scrollLeft % singleSetWidth) / singleSetWidth;
     setScrollProgress(normalizedScroll);
 
+    // Active project index (0 to projects.length - 1)
     const cardWidthEstimate = singleSetWidth / projects.length;
     const currentRelIdx = Math.floor(((el.scrollLeft % singleSetWidth) + cardWidthEstimate / 2) / cardWidthEstimate) % projects.length;
     setActiveIndex(currentRelIdx >= 0 ? currentRelIdx : 0);
@@ -95,21 +99,18 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
     };
   }, [handleInfiniteScrollWrap]);
 
-  // ✅ FIXED AUTO-SCROLL: Uses requestAnimationFrame with delta-time based movement
-  // This works reliably on mobile because rAF runs even when timers are throttled
+  // ✅ AUTO-SCROLL: requestAnimationFrame with delta-time movement (works on mobile)
   useEffect(() => {
-    const PIXELS_PER_SECOND = 45; // speed of auto-scroll
+    const PIXELS_PER_SECOND = 45;
 
     const tick = (time: number) => {
       if (!lastTimeRef.current) lastTimeRef.current = time;
       const delta = time - lastTimeRef.current;
       lastTimeRef.current = time;
 
-      // Only accumulate if not dragging and not manually navigating
       if (!isDragging && !isNavigatingRef.current) {
         accumulatorRef.current += (PIXELS_PER_SECOND * delta) / 1000;
 
-        // Move in whole pixel increments to avoid sub-pixel rendering issues on mobile
         if (accumulatorRef.current >= 1) {
           const el = containerRef.current;
           if (el) {
@@ -120,7 +121,6 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
           }
         }
       } else {
-        // Reset accumulator when paused so it doesn't jump when resuming
         accumulatorRef.current = 0;
       }
 
@@ -222,22 +222,22 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
         <button
           type="button"
           onClick={handleScrollLeft}
-          className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-13 md:h-13 rounded-full bg-[#dbfa07] text-black hover:bg-[#181a33] hover:text-white shadow-[0_4px_25px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 group pointer-events-auto select-none"
+          className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-30 w-9 h-9 md:w-13 md:h-13 rounded-full bg-[#dbfa07] text-black hover:bg-[#181a33] hover:text-white shadow-[0_4px_25px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 group pointer-events-auto select-none"
           aria-label="Scroll left"
           id="carousel-btn-left"
         >
-          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 -translate-x-0.5" />
+          <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 -translate-x-0.5" />
         </button>
 
         {/* Floating Right Navigation Button */}
         <button
           type="button"
           onClick={handleScrollRight}
-          className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-13 md:h-13 rounded-full bg-[#dbfa07] text-black hover:bg-[#181a33] hover:text-white shadow-[0_4px_25px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 group pointer-events-auto select-none"
+          className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-30 w-9 h-9 md:w-13 md:h-13 rounded-full bg-[#dbfa07] text-black hover:bg-[#181a33] hover:text-white shadow-[0_4px_25px_rgba(0,0,0,0.25)] flex items-center justify-center cursor-pointer transition-all duration-300 hover:scale-110 active:scale-95 group pointer-events-auto select-none"
           aria-label="Scroll right"
           id="carousel-btn-right"
         >
-          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 translate-x-0.5" />
+          <ChevronRight className="w-4 h-4 md:w-6 md:h-6 translate-x-0.5" />
         </button>
 
         {/* Main Infinite Horizontal Carousel Container */}
@@ -246,7 +246,8 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
-          className="w-full overflow-x-auto no-scrollbar flex items-stretch gap-2 sm:gap-2.5 md:gap-3 px-6 md:px-12 lg:px-16 cursor-grab active:cursor-grabbing touch-pan-x"
+          // ✅ Reduced padding on mobile (px-3) so cards have more room
+          className="w-full overflow-x-auto no-scrollbar flex items-stretch gap-2 sm:gap-2.5 md:gap-3 px-3 sm:px-6 md:px-12 lg:px-16 cursor-grab active:cursor-grabbing touch-pan-x"
           id="projects-carousel-container"
         >
           {duplicatedProjects.map((project, idx) => {
@@ -257,15 +258,17 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
                 onMouseEnter={() => setHoveredCardId(uniqueKey)}
                 onMouseLeave={() => setHoveredCardId(null)}
                 onClick={() => handleCardClick(project)}
-                // ✅ SMALLER CARDS ON MOBILE (was w-[220px], now w-[160px])
-                className="flex-shrink-0 w-[160px] xs:w-[180px] sm:w-[260px] md:w-[340px] lg:w-[440px] group cursor-pointer"
+                // ✅ 3 CARDS FIT ON MOBILE
+                // (100vw - 24px padding - 16px gaps) / 3 = each card
+                className="flex-shrink-0 w-[calc((100vw-40px)/3)] sm:w-[calc((100vw-60px)/3)] md:w-[340px] lg:w-[440px] group cursor-pointer"
                 id={`carousel-card-${project.id}-${idx}`}
               >
                 <div 
                   style={{ borderRadius: '6px' }}
-                  // ✅ SMALLER HEIGHTS ON MOBILE (was min-h-[440px], now min-h-[320px])
-                  className="relative w-full aspect-[9/14] sm:aspect-[9/13] md:aspect-[3/4] min-h-[300px] xs:min-h-[340px] sm:min-h-[460px] md:min-h-[520px] lg:min-h-[600px] overflow-hidden bg-neutral-100 shadow-sm transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1.5 border border-neutral-200/60"
+                  // ✅ Taller aspect ratio on mobile so cards don't look cramped
+                  className="relative w-full aspect-[3/5] sm:aspect-[9/14] md:aspect-[3/4] overflow-hidden bg-neutral-100 shadow-sm transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1.5 border border-neutral-200/60"
                 >
+                  {/* Visual Image with matching 6px radius inner fit */}
                   <img
                     src={project.image}
                     alt={project.title}
@@ -276,38 +279,42 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
                     draggable={false}
                   />
 
+                  {/* Subtle dark ambient gradient on hover */}
                   <div 
                     style={{ borderRadius: '6px' }}
-                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5 md:p-6 text-white pointer-events-none"
+                    className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-3 sm:p-5 md:p-6 text-white pointer-events-none"
                   >
+                    {/* Top pill tags */}
                     <div className="flex items-center justify-between">
                       <span 
                         style={{ borderRadius: '6px' }}
-                        className="px-2.5 py-1 bg-white/25 backdrop-blur-md text-[11px] font-bold tracking-wider uppercase border border-white/20"
+                        className="px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-white/25 backdrop-blur-md text-[8px] sm:text-[11px] font-bold tracking-wider uppercase border border-white/20"
                       >
                         {project.category}
                       </span>
                       <span 
                         style={{ borderRadius: '6px' }}
-                        className="w-8 h-8 bg-white/25 backdrop-blur-md flex items-center justify-center border border-white/20"
+                        className="w-5 h-5 sm:w-8 sm:h-8 bg-white/25 backdrop-blur-md flex items-center justify-center border border-white/20"
                       >
-                        <ArrowUpRight className="w-4 h-4 text-white" />
+                        <ArrowUpRight className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                       </span>
                     </div>
 
+                    {/* Bottom title & info */}
                     <div>
-                      <span className="text-[11px] font-medium tracking-widest uppercase text-neutral-300 block mb-1">
+                      <span className="text-[8px] sm:text-[11px] font-medium tracking-widest uppercase text-neutral-300 block mb-0.5 sm:mb-1">
                         {project.client}
                       </span>
-                      <h3 className="text-lg md:text-xl font-bold tracking-tight text-white leading-snug">
+                      <h3 className="text-xs sm:text-lg md:text-xl font-bold tracking-tight text-white leading-tight sm:leading-snug">
                         {project.title}
                       </h3>
                     </div>
                   </div>
 
+                  {/* Minimal Bottom Pill on mobile / default when not hovering */}
                   <div 
                     style={{ borderRadius: '6px' }}
-                    className="absolute bottom-3 left-3 px-2.5 py-1 bg-neutral-900/70 backdrop-blur-md text-white text-[10px] font-semibold tracking-wider uppercase group-hover:opacity-0 transition-opacity duration-200"
+                    className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-neutral-900/70 backdrop-blur-md text-white text-[7px] sm:text-[10px] font-semibold tracking-wider uppercase group-hover:opacity-0 transition-opacity duration-200"
                   >
                     {project.badge || project.category}
                   </div>
