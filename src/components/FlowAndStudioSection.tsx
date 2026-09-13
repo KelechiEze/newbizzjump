@@ -273,10 +273,10 @@ export const FlowAndStudioSection = ({
           {/* Bottom Left Studio Label & Author */}
           <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-10 text-white">
             <h4 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight mb-1">
-              THE STUDIO
+              THE CREATIVE AGENCY
             </h4>
             <p className="text-xs sm:text-sm font-medium text-white/80 tracking-wide">
-              The creative agency by Bizzjump and Kelechi Eze
+            By Bizzjump and Kelechi Eze
             </p>
           </div>
         </div>

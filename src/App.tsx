@@ -18,6 +18,7 @@ import { JournalModal } from './components/JournalModal';
 import { AboutModal } from './components/AboutModal';
 import { ContactModal } from './components/ContactModal';
 import { ProjectsArchiveModal } from './components/ProjectsArchiveModal';
+import { ProjectDetailModal } from './components/ProjectDetailModal';
 import Preloader from './components/Preloader';
 import { PROJECTS } from './data/projectsData';
 import { Project } from './types';
@@ -42,6 +43,7 @@ function MainAppLayout() {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [isProjectsArchiveOpen, setIsProjectsArchiveOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const handleOpenStartProject = (plan?: string) => {
     setInitialPlan(plan);
@@ -51,6 +53,8 @@ function MainAppLayout() {
   const handleOpenProject = (project: Project) => {
     if (project.website) {
       window.open(project.website, '_blank', 'noopener,noreferrer');
+    } else {
+      setSelectedProject(project);
     }
   };
 
@@ -186,6 +190,14 @@ function MainAppLayout() {
         isOpen={isProjectsArchiveOpen}
         onClose={() => setIsProjectsArchiveOpen(false)}
         projects={PROJECTS}
+      />
+
+      <ProjectDetailModal
+        project={selectedProject}
+        allProjects={PROJECTS}
+        onClose={() => setSelectedProject(null)}
+        onSelectProject={handleOpenProject}
+        onOpenStartProject={() => handleOpenStartProject()}
       />
     </div>
   );

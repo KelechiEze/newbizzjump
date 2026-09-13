@@ -269,7 +269,7 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
                 onMouseEnter={() => setHoveredCardId(uniqueKey)}
                 onMouseLeave={() => setHoveredCardId(null)}
                 onClick={() => handleCardClick(project)}
-                className="flex-shrink-0 w-[280px] sm:w-[340px] md:w-[400px] lg:w-[440px] group cursor-pointer"
+                className="flex-shrink-0 w-[220px] sm:w-[320px] md:w-[400px] lg:w-[440px] group cursor-pointer"
                 id={`carousel-card-${project.id}-${idx}`}
               >
                 {/* Outer Card Wrapper with 6px border-radius and increased height */}
