@@ -16,13 +16,13 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
   const [scrollLeftState, setScrollLeftState] = useState(0);
   const [hasMoved, setHasMoved] = useState(false);
   const [hoveredCardId, setHoveredCardId] = useState<string | null>(null);
-  const [isPausedByUser, setIsPausedByUser] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const isNavigatingRef = useRef(false);
-  const isTouchingRef = useRef(false);
   const navTimeoutRef = useRef<number | null>(null);
-  const touchResumeTimeoutRef = useRef<number | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
+  const accumulatorRef = useRef<number>(0);
 
   // We repeat projects 3 times to create a truly seamless infinite scroll track
   const duplicatedProjects = [...projects, ...projects, ...projects];
@@ -30,14 +30,14 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
   // Calculate dynamic step distance based on current card width + gap
   const getScrollStep = useCallback(() => {
     const el = containerRef.current;
-    if (!el) return 400;
+    if (!el) return 300;
     const firstCard = el.querySelector<HTMLElement>('[id^="carousel-card-"]');
     if (firstCard) {
       const cardWidth = firstCard.getBoundingClientRect().width;
       const computedGap = parseFloat(window.getComputedStyle(el).gap || '12') || 12;
       return cardWidth + computedGap;
     }
-    return 400;
+    return 300;
   }, []);
 
   // Initialize scroll position in the middle track for bidirectional infinite scroll
@@ -57,26 +57,13 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
     return () => clearTimeout(t);
   }, [projects.length]);
 
-  // Clean up any pending navigation timer on unmount
+  // Clean up timers on unmount
   useEffect(() => {
     return () => {
-      if (navTimeoutRef.current) {
-        window.clearTimeout(navTimeoutRef.current);
-      }
-      if (touchResumeTimeoutRef.current) {
-        window.clearTimeout(touchResumeTimeoutRef.current);
-      }
+      if (navTimeoutRef.current) window.clearTimeout(navTimeoutRef.current);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
-
-  const resumeAutoScrollAfterTouch = () => {
-    if (touchResumeTimeoutRef.current) {
-      window.clearTimeout(touchResumeTimeoutRef.current);
-    }
-    touchResumeTimeoutRef.current = window.setTimeout(() => {
-      isTouchingRef.current = false;
-    }, 500);
-  };
 
   // Keep track of infinite wrap-around seamlessly
   const handleInfiniteScrollWrap = useCallback(() => {
@@ -86,18 +73,14 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
     if (singleSetWidth <= 0) return;
 
     if (el.scrollLeft >= singleSetWidth * 2) {
-      // Reached the 3rd set, seamlessly reset back to 2nd set without flash
       el.scrollLeft -= singleSetWidth;
     } else if (el.scrollLeft <= 0) {
-      // Reached the 1st set, seamlessly reset forward to 2nd set
       el.scrollLeft += singleSetWidth;
     }
 
-    // Calculate normalized progress (0 to 1 across single set)
     const normalizedScroll = (el.scrollLeft % singleSetWidth) / singleSetWidth;
     setScrollProgress(normalizedScroll);
 
-    // Active project index (0 to projects.length - 1)
     const cardWidthEstimate = singleSetWidth / projects.length;
     const currentRelIdx = Math.floor(((el.scrollLeft % singleSetWidth) + cardWidthEstimate / 2) / cardWidthEstimate) % projects.length;
     setActiveIndex(currentRelIdx >= 0 ? currentRelIdx : 0);
@@ -112,31 +95,52 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
     };
   }, [handleInfiniteScrollWrap]);
 
-  // Continuous auto-scroll animation loop (smooth requestAnimationFrame)
+  // ✅ FIXED AUTO-SCROLL: Uses requestAnimationFrame with delta-time based movement
+  // This works reliably on mobile because rAF runs even when timers are throttled
   useEffect(() => {
-    let animFrameId: number;
-    const speed = 0.85; // Pixels per frame (~50px/sec at 60fps)
+    const PIXELS_PER_SECOND = 45; // speed of auto-scroll
 
-    const step = () => {
-      const el = containerRef.current;
-      // Keep the ticker active on touch devices, pausing only while a finger is down.
-      if (el && !isDragging && !isPausedByUser && !isTouchingRef.current && !isNavigatingRef.current) {
-        el.scrollLeft += speed;
-        handleInfiniteScrollWrap();
+    const tick = (time: number) => {
+      if (!lastTimeRef.current) lastTimeRef.current = time;
+      const delta = time - lastTimeRef.current;
+      lastTimeRef.current = time;
+
+      // Only accumulate if not dragging and not manually navigating
+      if (!isDragging && !isNavigatingRef.current) {
+        accumulatorRef.current += (PIXELS_PER_SECOND * delta) / 1000;
+
+        // Move in whole pixel increments to avoid sub-pixel rendering issues on mobile
+        if (accumulatorRef.current >= 1) {
+          const el = containerRef.current;
+          if (el) {
+            const move = Math.floor(accumulatorRef.current);
+            accumulatorRef.current -= move;
+            el.scrollLeft += move;
+            handleInfiniteScrollWrap();
+          }
+        }
+      } else {
+        // Reset accumulator when paused so it doesn't jump when resuming
+        accumulatorRef.current = 0;
       }
-      animFrameId = requestAnimationFrame(step);
+
+      rafRef.current = requestAnimationFrame(tick);
     };
 
-    animFrameId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animFrameId);
-  }, [isDragging, isPausedByUser, handleInfiniteScrollWrap]);
+    rafRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      lastTimeRef.current = 0;
+      accumulatorRef.current = 0;
+    };
+  }, [isDragging, handleInfiniteScrollWrap]);
 
   // Navigation step handlers for left and right buttons
   const performStepScroll = (direction: 'left' | 'right') => {
     const el = containerRef.current;
     if (!el) return;
 
-    // Pause continuous ticker while user interacts with manual controls
     isNavigatingRef.current = true;
     if (navTimeoutRef.current) {
       window.clearTimeout(navTimeoutRef.current);
@@ -149,13 +153,11 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
     const singleSetWidth = el.scrollWidth / 3;
 
     if (direction === 'left') {
-      // Seamlessly wrap forward if approaching left limit before smooth scroll
       if (singleSetWidth > 0 && el.scrollLeft - step < 20) {
         el.scrollLeft += singleSetWidth;
       }
       el.scrollBy({ left: -step, behavior: 'smooth' });
     } else {
-      // Seamlessly wrap backward if approaching right limit before smooth scroll
       if (singleSetWidth > 0 && el.scrollLeft + step > singleSetWidth * 2 - 20) {
         el.scrollLeft -= singleSetWidth;
       }
@@ -244,21 +246,7 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
-          onTouchStart={() => {
-            if (touchResumeTimeoutRef.current) {
-              window.clearTimeout(touchResumeTimeoutRef.current);
-            }
-            isTouchingRef.current = true;
-          }}
-          onTouchEnd={() => {
-            resumeAutoScrollAfterTouch();
-          }}
-          onTouchCancel={() => {
-            resumeAutoScrollAfterTouch();
-          }}
-          className={`w-full overflow-x-auto no-scrollbar flex items-stretch gap-2 sm:gap-2.5 md:gap-3 px-6 md:px-12 lg:px-16 cursor-grab active:cursor-grabbing touch-pan-x ${
-            isDragging ? 'scroll-auto' : 'scroll-auto'
-          }`}
+          className="w-full overflow-x-auto no-scrollbar flex items-stretch gap-2 sm:gap-2.5 md:gap-3 px-6 md:px-12 lg:px-16 cursor-grab active:cursor-grabbing touch-pan-x"
           id="projects-carousel-container"
         >
           {duplicatedProjects.map((project, idx) => {
@@ -269,15 +257,15 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
                 onMouseEnter={() => setHoveredCardId(uniqueKey)}
                 onMouseLeave={() => setHoveredCardId(null)}
                 onClick={() => handleCardClick(project)}
-                className="flex-shrink-0 w-[220px] sm:w-[320px] md:w-[400px] lg:w-[440px] group cursor-pointer"
+                // ✅ SMALLER CARDS ON MOBILE (was w-[220px], now w-[160px])
+                className="flex-shrink-0 w-[160px] xs:w-[180px] sm:w-[260px] md:w-[340px] lg:w-[440px] group cursor-pointer"
                 id={`carousel-card-${project.id}-${idx}`}
               >
-                {/* Outer Card Wrapper with 6px border-radius and increased height */}
                 <div 
                   style={{ borderRadius: '6px' }}
-                  className="relative w-full aspect-[9/14] sm:aspect-[9/13] md:aspect-[3/4] min-h-[440px] sm:min-h-[500px] md:min-h-[560px] lg:min-h-[600px] overflow-hidden bg-neutral-100 shadow-sm transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1.5 border border-neutral-200/60"
+                  // ✅ SMALLER HEIGHTS ON MOBILE (was min-h-[440px], now min-h-[320px])
+                  className="relative w-full aspect-[9/14] sm:aspect-[9/13] md:aspect-[3/4] min-h-[300px] xs:min-h-[340px] sm:min-h-[460px] md:min-h-[520px] lg:min-h-[600px] overflow-hidden bg-neutral-100 shadow-sm transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1.5 border border-neutral-200/60"
                 >
-                  {/* Visual Image with matching 6px radius inner fit */}
                   <img
                     src={project.image}
                     alt={project.title}
@@ -288,12 +276,10 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
                     draggable={false}
                   />
 
-                  {/* Subtle dark ambient gradient on hover */}
                   <div 
                     style={{ borderRadius: '6px' }}
                     className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-5 md:p-6 text-white pointer-events-none"
                   >
-                    {/* Top pill tags */}
                     <div className="flex items-center justify-between">
                       <span 
                         style={{ borderRadius: '6px' }}
@@ -309,7 +295,6 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
                       </span>
                     </div>
 
-                    {/* Bottom title & info */}
                     <div>
                       <span className="text-[11px] font-medium tracking-widest uppercase text-neutral-300 block mb-1">
                         {project.client}
@@ -320,7 +305,6 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
                     </div>
                   </div>
 
-                  {/* Minimal Bottom Pill on mobile / default when not hovering */}
                   <div 
                     style={{ borderRadius: '6px' }}
                     className="absolute bottom-3 left-3 px-2.5 py-1 bg-neutral-900/70 backdrop-blur-md text-white text-[10px] font-semibold tracking-wider uppercase group-hover:opacity-0 transition-opacity duration-200"
