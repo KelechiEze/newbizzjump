@@ -644,6 +644,8 @@ export const AboutPage = ({ onOpenStartProject }: AboutPageProps) => {
                   key={STUDIO_VIDEOS[activeVideoIdx].url}
                   src={STUDIO_VIDEOS[activeVideoIdx].url}
                   autoPlay
+                  loop
+                  muted
                   controls
                   playsInline
                   className="w-full h-full object-contain"

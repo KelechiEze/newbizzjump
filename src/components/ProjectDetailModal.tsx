@@ -144,6 +144,7 @@ export const ProjectDetailModal = ({
                     src={project.video}
                     autoPlay
                     loop
+                    muted
                     controls
                     playsInline
                     className="w-full h-full object-cover object-center"

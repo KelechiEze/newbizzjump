@@ -22,6 +22,7 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
   const isNavigatingRef = useRef(false);
   const isTouchingRef = useRef(false);
   const navTimeoutRef = useRef<number | null>(null);
+  const touchResumeTimeoutRef = useRef<number | null>(null);
 
   // We repeat projects 3 times to create a truly seamless infinite scroll track
   const duplicatedProjects = [...projects, ...projects, ...projects];
@@ -62,8 +63,20 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
       if (navTimeoutRef.current) {
         window.clearTimeout(navTimeoutRef.current);
       }
+      if (touchResumeTimeoutRef.current) {
+        window.clearTimeout(touchResumeTimeoutRef.current);
+      }
     };
   }, []);
+
+  const resumeAutoScrollAfterTouch = () => {
+    if (touchResumeTimeoutRef.current) {
+      window.clearTimeout(touchResumeTimeoutRef.current);
+    }
+    touchResumeTimeoutRef.current = window.setTimeout(() => {
+      isTouchingRef.current = false;
+    }, 500);
+  };
 
   // Keep track of infinite wrap-around seamlessly
   const handleInfiniteScrollWrap = useCallback(() => {
@@ -232,15 +245,18 @@ export const CarouselSection = ({ projects, onSelectProject }: CarouselSectionPr
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
           onTouchStart={() => {
+            if (touchResumeTimeoutRef.current) {
+              window.clearTimeout(touchResumeTimeoutRef.current);
+            }
             isTouchingRef.current = true;
           }}
           onTouchEnd={() => {
-            isTouchingRef.current = false;
+            resumeAutoScrollAfterTouch();
           }}
           onTouchCancel={() => {
-            isTouchingRef.current = false;
+            resumeAutoScrollAfterTouch();
           }}
-          className={`w-full overflow-x-auto no-scrollbar flex items-stretch gap-2 sm:gap-2.5 md:gap-3 px-6 md:px-12 lg:px-16 cursor-grab active:cursor-grabbing ${
+          className={`w-full overflow-x-auto no-scrollbar flex items-stretch gap-2 sm:gap-2.5 md:gap-3 px-6 md:px-12 lg:px-16 cursor-grab active:cursor-grabbing touch-pan-x ${
             isDragging ? 'scroll-auto' : 'scroll-auto'
           }`}
           id="projects-carousel-container"

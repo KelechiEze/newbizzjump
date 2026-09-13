@@ -276,7 +276,7 @@ export const FlowAndStudioSection = ({
               THE STUDIO
             </h4>
             <p className="text-xs sm:text-sm font-medium text-white/80 tracking-wide">
-              by Nicolas Han
+              The creative agency by Bizzjump and Kelechi Eze
             </p>
           </div>
         </div>
