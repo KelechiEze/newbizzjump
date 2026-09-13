@@ -58,8 +58,6 @@ export const FlowAndStudioSection = ({
   onOpenProjectsArchive,
 }: FlowAndStudioSectionProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
-  const [needsTap, setNeedsTap] = useState(false);
 
   // Counter animation on scroll for Stats (500+ and 200+)
   const statsRef = useRef<HTMLDivElement>(null);
@@ -67,99 +65,34 @@ export const FlowAndStudioSection = ({
   const [projectsCount, setProjectsCount] = useState(0);
   const [clientsCount, setClientsCount] = useState(0);
 
-  // ✅ FORCE VIDEO PLAYBACK ON MOBILE
-  // Mobile browsers (iOS Safari, Android Chrome) frequently ignore the autoPlay
-  // attribute even when the video is muted. We must explicitly call .play() after
-  // the video has loaded, and retry on visibility changes.
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Make sure the video is muted programmatically too — some browsers
-    // reset the muted state and then block autoplay.
-    video.muted = true;
-    video.defaultMuted = true;
-    video.playsInline = true;
-
-    const tryPlay = () => {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setVideoReady(true);
-            setNeedsTap(false);
-          })
-          .catch(() => {
-            // Autoplay was blocked. Show the tap-to-play overlay so the user
-            // can start it with a gesture (which mobile browsers allow).
-            setNeedsTap(true);
-          });
+    const startVideo = () => {
+      video.muted = true;
+      if (video.paused) {
+        void video.play().catch(() => {
+          // Mobile browsers may defer playback until the video becomes visible.
+        });
       }
     };
 
-    // Attempt playback as soon as enough data is available.
-    const handleLoadedData = () => tryPlay();
-    const handleCanPlay = () => tryPlay();
-
-    video.addEventListener('loadeddata', handleLoadedData);
-    video.addEventListener('canplay', handleCanPlay);
-
-    // If the video already has data cached, try immediately.
-    if (video.readyState >= 2) {
-      tryPlay();
-    }
-
-    // Retry when the tab becomes visible again (mobile browsers pause
-    // background videos and won't resume them automatically).
-    const handleVisibility = () => {
-      if (document.visibilityState === 'visible') {
-        tryPlay();
-      }
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') startVideo();
     };
-    document.addEventListener('visibilitychange', handleVisibility);
 
-    // Retry when the video enters the viewport (mobile lazy behaviour).
-    let observer: IntersectionObserver | null = null;
-    if ('IntersectionObserver' in window) {
-      observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              tryPlay();
-            }
-          });
-        },
-        { threshold: 0.25 }
-      );
-      observer.observe(video);
-    }
+    video.addEventListener('loadedmetadata', startVideo);
+    video.addEventListener('canplay', startVideo);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    startVideo();
 
     return () => {
-      video.removeEventListener('loadeddata', handleLoadedData);
-      video.removeEventListener('canplay', handleCanPlay);
-      document.removeEventListener('visibilitychange', handleVisibility);
-      if (observer) observer.disconnect();
+      video.removeEventListener('loadedmetadata', startVideo);
+      video.removeEventListener('canplay', startVideo);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
-
-  // ✅ Tap-to-play handler for the fallback overlay
-  const handleTapToPlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = true;
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setNeedsTap(false);
-          setVideoReady(true);
-        })
-        .catch(() => {
-          // Still blocked — keep the overlay.
-          setNeedsTap(true);
-        });
-    }
-  };
 
   useEffect(() => {
     if (!isStatsInView) return;
@@ -341,22 +274,15 @@ export const FlowAndStudioSection = ({
           style={{ borderRadius: '6px' }}
           className="relative w-full aspect-[16/10] sm:aspect-[16/8] md:aspect-[21/8] min-h-[260px] sm:min-h-[330px] md:min-h-[380px] overflow-hidden bg-neutral-950 mb-14 sm:mb-18 md:mb-20 shadow-md border border-neutral-200/60 group"
         >
-          {/* Studio Video Background — mobile-safe playback */}
+          {/* Studio Video Background */}
           <video
             ref={videoRef}
             src="https://res.cloudinary.com/nqlff1i2/video/upload/v1787743435/huki_wu5fzr.mp4"
+            preload="auto"
             loop
             muted
             autoPlay
             playsInline
-            // @ts-ignore - webkit-playsinline is required for older iOS Safari
-            webkit-playsinline="true"
-            // @ts-ignore - x5-playsinline helps on some Android WebViews (WeChat, QQ, etc.)
-            x5-playsinline="true"
-            x5-video-player-type="h5"
-            preload="auto"
-            disablePictureInPicture
-            controls={false}
             style={{ borderRadius: '6px' }}
             className="w-full h-full object-cover transition-all duration-500 filter-none opacity-90 group-hover:opacity-100"
           />
@@ -367,44 +293,20 @@ export const FlowAndStudioSection = ({
             className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"
           />
 
-          {/* ✅ TAP-TO-PLAY FALLBACK (only shown if mobile browser blocked autoplay) */}
-          {needsTap && (
-            <button
-              type="button"
-              onClick={handleTapToPlay}
-              aria-label="Play video"
-              className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-[2px] cursor-pointer transition-opacity duration-300"
-              style={{ borderRadius: '6px' }}
-            >
-              <span className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#dbfa07] text-black flex items-center justify-center shadow-2xl transition-transform duration-300 hover:scale-110 active:scale-95">
-                {/* Simple play triangle */}
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="translate-x-[2px]"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </span>
-            </button>
-          )}
-
           {/* Year Tag (Top Right: 2026) */}
-          <div className="absolute top-5 right-5 sm:top-7 sm:right-7 z-10 pointer-events-none">
+          <div className="absolute top-5 right-5 sm:top-7 sm:right-7 z-10">
             <span className="text-xs sm:text-sm font-mono-clean font-bold tracking-widest text-white/90 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
               2026
             </span>
           </div>
 
           {/* Bottom Left Studio Label & Author */}
-          <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-10 text-white pointer-events-none">
+          <div className="absolute bottom-6 left-6 sm:bottom-8 sm:left-8 z-10 text-white">
             <h4 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight mb-1">
               THE DESIGN AGENCY
             </h4>
             <p className="text-xs sm:text-sm font-medium text-white/80 tracking-wide">
-              Built by Bizzjump
+            Built by Bizzjump 
             </p>
           </div>
         </div>
