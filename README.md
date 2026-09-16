@@ -18,3 +18,9 @@ View your app in AI Studio: https://ai.studio/apps/cefee3ea-f1aa-414b-9c78-f0394
 2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Contact form backend
+
+Run the API separately from `backend/` with `npm install` and `npm start`. The Vite development server proxies `/api` to `http://localhost:5000`. For a deployed frontend, set `VITE_API_URL` to the deployed backend URL, including its `/api` path, for example `https://api.example.com/api`.
+
+The backend accepts `FIREBASE_SERVICE_ACCOUNT_JSON`, `GOOGLE_APPLICATION_CREDENTIALS`, `FIREBASE_SERVICE_ACCOUNT_PATH`, and `ALLOWED_ORIGINS` environment variables. Keep service-account credentials out of source control and rotate any key that has been exposed. For local development, download a new JSON key from Firebase Console > Project settings > Service accounts, then set `FIREBASE_SERVICE_ACCOUNT_PATH` to its absolute path.

@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { X, Mail, ArrowUpRight, Send, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { submitContactForm } from '../lib/contactApi';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -10,18 +11,25 @@ interface ContactModalProps {
 
 export const ContactModal = ({ isOpen, onClose, onOpenStartProject }: ContactModalProps) => {
   const [messageSent, setMessageSent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [form, setForm] = useState({ name: '', email: '', message: '' });
 
   if (!isOpen) return null;
 
-  const handleDirectSend = (e: FormEvent) => {
+  const handleDirectSend = async (e: FormEvent) => {
     e.preventDefault();
-    setMessageSent(true);
-    setTimeout(() => {
-      setMessageSent(false);
-      setForm({ name: '', email: '', message: '' });
-      onClose();
-    }, 2500);
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      await submitContactForm(form);
+      setMessageSent(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'We could not send your message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -142,12 +150,14 @@ export const ContactModal = ({ isOpen, onClose, onOpenStartProject }: ContactMod
 
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="inline-flex items-center gap-2 px-7 py-3 bg-[#dbfa07] text-black rounded-full text-xs font-medium tracking-normal uppercase hover:bg-[#181a33] hover:text-white transition-all duration-300 shadow-sm cursor-pointer"
                   >
-                    <span>Send Message</span>
+                    <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                     <Send className="w-3.5 h-3.5" />
                   </button>
                 </div>
+                {submitError && <p className="text-xs text-red-600" role="alert">{submitError}</p>}
               </form>
             ) : (
               <div className="py-8 text-center space-y-3 bg-white rounded-2xl border border-neutral-200">

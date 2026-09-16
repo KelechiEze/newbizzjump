@@ -2,6 +2,7 @@ import { useState, FormEvent } from 'react';
 import { X, Check, ArrowRight, ArrowLeft, Sparkles, Send, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import confetti from 'canvas-confetti';
+import { submitContactForm } from '../lib/contactApi';
 
 interface StartProjectModalProps {
   isOpen: boolean;
@@ -46,6 +47,8 @@ export const StartProjectModal = ({ isOpen, onClose }: StartProjectModalProps) =
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   if (!isOpen) return null;
 
@@ -57,13 +60,23 @@ export const StartProjectModal = ({ isOpen, onClose }: StartProjectModalProps) =
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const generatedId = `DAS-${Math.floor(1000 + Math.random() * 9000)}`;
-    setTicketId(generatedId);
-    setIsSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError('');
 
     try {
+      const result = await submitContactForm({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.details,
+        services: selectedServices,
+        budget: selectedBudget,
+        timeline: selectedTimeline,
+      });
+      setTicketId(result.submissionId || 'RECEIVED');
+      setIsSubmitted(true);
       confetti({
         particleCount: 80,
         spread: 70,
@@ -71,7 +84,9 @@ export const StartProjectModal = ({ isOpen, onClose }: StartProjectModalProps) =
         colors: ['#000000', '#F4989C', '#0077B6', '#E09F3E', '#98A892'],
       });
     } catch {
-      // ignore
+      setSubmitError('We could not send your brief. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -318,14 +333,15 @@ export const StartProjectModal = ({ isOpen, onClose }: StartProjectModalProps) =
                   <button
                     type="button"
                     onClick={handleSubmit}
-                    disabled={!formData.name || !formData.email}
+                    disabled={!formData.name || !formData.email || isSubmitting}
                     className="inline-flex items-center gap-2 px-7 py-3 bg-[#dbfa07] text-black rounded-full text-xs font-medium tracking-normal uppercase hover:bg-[#181a33] hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 cursor-pointer shadow-md"
                   >
-                    <span>Transmit Brief</span>
+                    <span>{isSubmitting ? 'Sending...' : 'Transmit Brief'}</span>
                     <Send className="w-4 h-4" />
                   </button>
                 )}
               </div>
+              {submitError && <p className="text-xs text-red-600" role="alert">{submitError}</p>}
             </div>
           ) : (
             /* Submission Confirmation Screen */

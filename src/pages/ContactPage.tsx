@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, FormEvent } from 'react';
 import { AnimatePresence, useInView } from 'motion/react';
 import { ArrowUpRight, Check } from 'lucide-react';
 import { FAQSection } from '../components/FAQSection';
+import { submitContactForm } from '../lib/contactApi';
 
 interface ContactPageProps {
   onOpenContact: () => void;
@@ -14,14 +15,25 @@ export const ContactPage = ({ onOpenContact }: ContactPageProps) => {
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const statsRef = useRef<HTMLDivElement>(null);
   const isStatsInView = useInView(statsRef, { once: true, amount: 0.2 });
   const [statValues, setStatValues] = useState({ valueCreated: 0, hoursInvested: 0, projectsDelivered: 0 });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!formData.name && !formData.email && !formData.message) return;
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitError('');
+
+    try {
+      await submitContactForm(formData);
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'We could not send your message. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   useEffect(() => {
@@ -151,12 +163,14 @@ export const ContactPage = ({ onOpenContact }: ContactPageProps) => {
                     <div className="pt-4">
                       <button
                         type="submit"
+                        disabled={isSubmitting}
                         id="contact-submit-btn"
                         className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold uppercase tracking-wider text-neutral-950 hover:text-neutral-600 transition-colors cursor-pointer group"
                       >
-                        <span>SUBMIT</span>
+                        <span>{isSubmitting ? 'SENDING...' : 'SUBMIT'}</span>
                         <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </button>
+                      {submitError && <p className="mt-3 text-xs text-red-600" role="alert">{submitError}</p>}
                     </div>
                   </form>
                 )}
