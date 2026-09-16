@@ -2,6 +2,6 @@ export async function handler() {
   return {
   statusCode: 200,
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ status: 'ok', service: 'bizzjump-contact' }),
+  body: JSON.stringify({ status: 'ok', service: 'bizzjump-contact', version: 'netlify-functions-v2' }),
   };
 }
