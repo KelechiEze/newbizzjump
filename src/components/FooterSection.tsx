@@ -278,7 +278,7 @@ export const FooterSection = ({ onSelectProject }: FooterSectionProps) => {
         </div>
 
         <div className="text-neutral-500 text-xs font-mono">
-          BIZZJUMP &bull; BERLIN STUDIO
+          BIZZJUMP
         </div>
       </div>
     </footer>

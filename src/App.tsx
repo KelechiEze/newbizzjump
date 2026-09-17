@@ -22,6 +22,7 @@ import { AboutModal } from './components/AboutModal';
 import { ContactModal } from './components/ContactModal';
 import { ProjectsArchiveModal } from './components/ProjectsArchiveModal';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
+import { CookieConsentBanner, STORAGE_KEY } from './components/CookieConsentBanner';
 import Preloader from './components/Preloader';
 import { PROJECTS } from './data/projectsData';
 import { Project } from './types';
@@ -234,13 +235,105 @@ function MainAppLayout() {
 
 export default function App() {
   const [isPreloaderVisible, setIsPreloaderVisible] = useState(true);
+  const [isCookieBannerOpen, setIsCookieBannerOpen] = useState(false);
+
+  // Clear stale legacy cookie key on mount so banner is fresh and visible
+  useEffect(() => {
+    try {
+      localStorage.removeItem('bizzjump_cookie_consent');
+      localStorage.removeItem('bizzjump_cookie_consent_v2');
+    } catch {
+      // Ignored
+    }
+  }, []);
+
+  // Show banner a few seconds after the website loads (when preloader completes)
+  useEffect(() => {
+    if (!isPreloaderVisible) {
+      let hasDecision = false;
+      try {
+        hasDecision = !!localStorage.getItem(STORAGE_KEY);
+      } catch {
+        hasDecision = false;
+      }
+
+      if (!hasDecision) {
+        // Wait 1.8 seconds after website is loaded, then display banner and blur website
+        const timer = window.setTimeout(() => {
+          setIsCookieBannerOpen(true);
+        }, 1800);
+
+        return () => window.clearTimeout(timer);
+      }
+    }
+  }, [isPreloaderVisible]);
+
+  // Support re-opening the banner (e.g. from Cookie Policy or footer)
+  useEffect(() => {
+    const handleReopen = () => {
+      setIsCookieBannerOpen(true);
+    };
+    window.addEventListener('bizzjump_reopen_cookie_banner', handleReopen);
+    return () => window.removeEventListener('bizzjump_reopen_cookie_banner', handleReopen);
+  }, []);
+
+  const handleAccept = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, 'accepted');
+    } catch {
+      // Storage fallback
+    }
+    setIsCookieBannerOpen(false);
+    window.dispatchEvent(
+      new CustomEvent('bizzjump_cookie_consent', { detail: { consent: 'accepted' } })
+    );
+  };
+
+  const handleDecline = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, 'declined');
+    } catch {
+      // Storage fallback
+    }
+    setIsCookieBannerOpen(false);
+    window.dispatchEvent(
+      new CustomEvent('bizzjump_cookie_consent', { detail: { consent: 'declined' } })
+    );
+  };
 
   return (
     <BrowserRouter>
+      {/* Three.js Preloader on initial arrival */}
       {isPreloaderVisible && (
         <Preloader onComplete={() => setIsPreloaderVisible(false)} />
       )}
-      <MainAppLayout />
+
+      {/* Website wrapper: blurs when the cookie consent banner is displayed */}
+      <div
+        className={`transition-all duration-500 ease-out ${
+          isCookieBannerOpen
+            ? 'filter blur-[7px] pointer-events-none select-none'
+            : 'filter blur-0'
+        }`}
+        aria-hidden={isCookieBannerOpen}
+      >
+        <MainAppLayout />
+      </div>
+
+      {/* Dimmed backdrop overlay behind the cookie consent banner when open */}
+      {isCookieBannerOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/35 backdrop-blur-xs transition-opacity duration-500 pointer-events-auto"
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sleek, Crisp Cookie Consent Banner */}
+      <CookieConsentBanner
+        isOpen={isCookieBannerOpen}
+        onAccept={handleAccept}
+        onDecline={handleDecline}
+      />
     </BrowserRouter>
   );
 }
