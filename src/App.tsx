@@ -12,6 +12,9 @@ import { AboutPage } from './pages/AboutPage';
 import { ProjectsPage } from './pages/ProjectsPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ContactPage } from './pages/ContactPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { TermsPage } from './pages/TermsPage';
+import { CookiePolicyPage } from './pages/CookiePolicyPage';
 import { StartProjectModal } from './components/StartProjectModal';
 import { OurApproachModal } from './components/OurApproachModal';
 import { JournalModal } from './components/JournalModal';
@@ -62,6 +65,7 @@ function MainAppLayout() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
+        setSelectedProject(null);
         setIsStartProjectOpen(false);
         setIsOurApproachOpen(false);
         setIsJournalOpen(false);
@@ -128,7 +132,31 @@ function MainAppLayout() {
           />
           <Route
             path="/contact"
-            element={<ContactPage onOpenContact={() => setIsContactOpen(true)} />}
+            element={<ContactPage />}
+          />
+          <Route
+            path="/privacy-policy"
+            element={<PrivacyPolicyPage />}
+          />
+          <Route
+            path="/privacy"
+            element={<PrivacyPolicyPage />}
+          />
+          <Route
+            path="/terms"
+            element={<TermsPage />}
+          />
+          <Route
+            path="/terms-and-conditions"
+            element={<TermsPage />}
+          />
+          <Route
+            path="/cookie-policy"
+            element={<CookiePolicyPage />}
+          />
+          <Route
+            path="/cookies"
+            element={<CookiePolicyPage />}
           />
           {/* Fallback route */}
           <Route
@@ -190,6 +218,7 @@ function MainAppLayout() {
         isOpen={isProjectsArchiveOpen}
         onClose={() => setIsProjectsArchiveOpen(false)}
         projects={PROJECTS}
+        onSelectProject={handleOpenProject}
       />
 
       <ProjectDetailModal

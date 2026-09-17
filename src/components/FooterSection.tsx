@@ -150,7 +150,6 @@ export const FooterSection = ({ onSelectProject }: FooterSectionProps) => {
                 itemClassName="text-white hover:text-[#dbfa07] hover:bg-neutral-800"
               />
             </div>
-
           </div>
         </div>
 
@@ -251,6 +250,35 @@ export const FooterSection = ({ onSelectProject }: FooterSectionProps) => {
               </Link>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* 3. Bottom Legal & Copyright Bar */}
+      <div className="mt-16 sm:mt-20 md:mt-24 pt-8 sm:pt-10 border-t border-neutral-800/90 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-neutral-400 font-normal">
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 gap-y-1">
+          <span>&copy; 2026 All Rights Reserved.</span>
+          <Link
+            to="/privacy-policy"
+            className="hover:text-[#dbfa07] hover:underline underline-offset-4 transition-colors text-neutral-300"
+          >
+            Privacy Policy.
+          </Link>
+          <Link
+            to="/terms"
+            className="hover:text-[#dbfa07] hover:underline underline-offset-4 transition-colors text-neutral-300"
+          >
+            Terms.
+          </Link>
+          <Link
+            to="/cookie-policy"
+            className="hover:text-[#dbfa07] hover:underline underline-offset-4 transition-colors text-neutral-300"
+          >
+            Cookie Policy
+          </Link>
+        </div>
+
+        <div className="text-neutral-500 text-xs font-mono">
+          BIZZJUMP &bull; BERLIN STUDIO
         </div>
       </div>
     </footer>
