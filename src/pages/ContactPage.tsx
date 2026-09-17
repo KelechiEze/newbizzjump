@@ -187,7 +187,7 @@ export const ContactPage = ({ onOpenContact }: ContactPageProps) => {
                     href="tel:13858859701"
                     className="font-bold text-neutral-950 underline underline-offset-4 hover:opacity-75 transition-opacity"
                   >
-                    13858859701
+                    +13858859701
                   </a>
                 </div>
               </div>
