@@ -277,7 +277,7 @@ export const FlowAndStudioSection = ({
           {/* Studio Video Background */}
           <video
             ref={videoRef}
-            src="https://res.cloudinary.com/nqlff1i2/video/upload/v1787743435/huki_wu5fzr.mp4"
+            src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Vids/huki.mp4"
             preload="auto"
             loop
             muted
