@@ -275,13 +275,14 @@ const CORE_PROJECTS: Project[] = [
   },
 ];
 
-const createSupplementalProject = (id: string, title: string, image: string, category: string): Project => ({
+const createSupplementalProject = (id: string, title: string, image: string, category: string, website?: string): Project => ({
   id,
   title,
   client: title,
   category,
   year: '2025',
   image,
+  website,
   accentColor: '#dbfa07',
   tag: 'CONCEPT WEB DESIGN',
   badge: 'Concept Web Design',
@@ -311,24 +312,28 @@ export const PROJECTS: Project[] = [
     'Kevin Hart',
     'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Kevin.avif',
     'Web Design',
+    'https://kevinhartroast.netlify.app/',
   ),
   createSupplementalProject(
     'streamer-u',
     'Streamer U',
     'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/SU%20.avif',
     'Branding',
+    'https://streamerzuniversity.netlify.app/',
   ),
   createSupplementalProject(
     'superblock',
     'Superblock',
     'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/superblock.avif',
     'Shopify',
+    'https://superblockk.netlify.app/',
   ),
   createSupplementalProject(
     'world-cup',
     'World Cup',
     'https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/world%20Cup.avif',
     'Ecommerce',
+    'https://wurldcup.netlify.app/',
   ),
 ];
 
