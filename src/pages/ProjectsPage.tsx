@@ -5,17 +5,20 @@ import { Project } from '../types';
 import { CarouselSection } from '../components/CarouselSection';
 
 interface ProjectsPageProps {
-  onSelectProject: (project: Project) => void;
+  onSelectProject: (project: Project, options?: { forceModal?: boolean }) => void;
   onOpenStartProject: () => void;
 }
 
 export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPageProps) => {
+  // Cards with a website open it directly in a new tab; others fall back to the modal.
   const handleProjectSelect = (project: Project) => {
-    if (project.website) {
-      window.location.assign(project.website);
-    } else {
-      onSelectProject(project);
-    }
+    onSelectProject(project);
+  };
+
+  // Grid cards always open the detail modal so the clicked card's own image
+  // and content are shown; the modal's "Visit Website" link opens the site in a new tab.
+  const handleGridProjectSelect = (project: Project) => {
+    onSelectProject(project, { forceModal: true });
   };
 
   return (
@@ -55,7 +58,7 @@ export const ProjectsPage = ({ onSelectProject, onOpenStartProject }: ProjectsPa
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: Math.min(idx * 0.05, 0.3) }}
-                  onClick={() => handleProjectSelect(project)}
+                  onClick={() => handleGridProjectSelect(project)}
                   className="group cursor-pointer flex flex-col select-none"
                 >
                   <div

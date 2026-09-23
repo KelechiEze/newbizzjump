@@ -16,8 +16,8 @@ const SERVICE_CAPABILITIES = [
   {
     icon: Layers,
     title: 'Spatial & 3D Scenography',
-    description: 'Immersive physical and digital environments that command sensory attention.',
-    deliverables: ['3D Product Renders', 'Interactive 3D Web', 'Spatial Exhibition Design', 'Lighting & Atmosphere Design', 'Motion Guidelines'],
+    description: 'Immersive physical and digital environments that command sensory attention, blending architectural staging with real-time 3D rendering to give brands a tangible sense of scale, depth, and atmosphere across exhibitions, retail, and web.',
+    deliverables: ['3D Product Renders', 'Interactive 3D Web Experiences', 'Spatial Exhibition Design', 'Lighting & Atmosphere Design', 'Environmental Storytelling', 'Motion & Camera Choreography Guidelines'],
   },
   {
     icon: Zap,
@@ -57,7 +57,9 @@ const WORKFLOW_STEPS = [
 ];
 
 export const ServicesPage = ({ onOpenStartProject, onOpenContact }: ServicesPageProps) => {
-  const [expandedIdx, setExpandedIdx] = useState<number | null>(0);
+  const [expandedIndices, setExpandedIndices] = useState<number[]>(
+    SERVICE_CAPABILITIES.map((_, idx) => idx)
+  );
 
   return (
     <div className="w-full bg-[#fcfbf9] text-neutral-950 pb-28 select-none">
@@ -111,7 +113,7 @@ export const ServicesPage = ({ onOpenStartProject, onOpenContact }: ServicesPage
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {SERVICE_CAPABILITIES.map((service, idx) => {
               const Icon = service.icon;
-              const isExpanded = expandedIdx === idx;
+              const isExpanded = expandedIndices.includes(idx);
 
               return (
                 <div
@@ -133,7 +135,11 @@ export const ServicesPage = ({ onOpenStartProject, onOpenContact }: ServicesPage
 
                   <div>
                     <button
-                      onClick={() => setExpandedIdx(isExpanded ? null : idx)}
+                      onClick={() =>
+                        setExpandedIndices((prev) =>
+                          isExpanded ? prev.filter((i) => i !== idx) : [...prev, idx]
+                        )
+                      }
                       className="w-full flex items-center justify-between py-3 text-xs font-bold uppercase tracking-wider text-neutral-950 border-t border-neutral-100 group-hover:border-neutral-950/20 cursor-pointer transition-colors"
                     >
                       <span>DELIVERABLES LIST</span>

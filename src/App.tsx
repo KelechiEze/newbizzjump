@@ -24,8 +24,10 @@ import { ProjectsArchiveModal } from './components/ProjectsArchiveModal';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
 import { CookieConsentBanner, STORAGE_KEY } from './components/CookieConsentBanner';
 import Preloader from './components/Preloader';
-import { PROJECTS } from './data/projectsData';
+import { PROJECTS, PROJECT_PAGE_PROJECTS } from './data/projectsData';
 import { Project } from './types';
+
+const ALL_PROJECTS = [...PROJECTS, ...PROJECT_PAGE_PROJECTS];
 
 // Scroll to top helper on every page navigation
 function ScrollToTop() {
@@ -54,8 +56,8 @@ function MainAppLayout() {
     setIsStartProjectOpen(true);
   };
 
-  const handleOpenProject = (project: Project) => {
-    if (project.website) {
+  const handleOpenProject = (project: Project, options?: { forceModal?: boolean }) => {
+    if (project.website && !options?.forceModal) {
       window.open(project.website, '_blank', 'noopener,noreferrer');
     } else {
       setSelectedProject(project);
@@ -224,7 +226,7 @@ function MainAppLayout() {
 
       <ProjectDetailModal
         project={selectedProject}
-        allProjects={PROJECTS}
+        allProjects={ALL_PROJECTS}
         onClose={() => setSelectedProject(null)}
         onSelectProject={handleOpenProject}
         onOpenStartProject={() => handleOpenStartProject()}
