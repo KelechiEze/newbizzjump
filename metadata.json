@@ -1,0 +1,18 @@
+{
+  "name": "BIZZJUMP",
+  "description": "BIZZJUMP creates distinctive brand identities, digital products, websites, and e-commerce experiences for ambitious brands.",
+  "url": "https://bizzjump.com/",
+  "sitemap": "https://bizzjump.com/sitemap.xml",
+  "favicon": "/favicon.ico",
+  "keywords": [
+    "BIZZJUMP",
+    "brand strategy",
+    "brand identity",
+    "web design",
+    "digital product design",
+    "e-commerce design",
+    "creative engineering"
+  ],
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
