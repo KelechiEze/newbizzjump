@@ -10,6 +10,7 @@ import { FooterSection } from './components/FooterSection';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ProjectsPage } from './pages/ProjectsPage';
+import { InitiativesPage, InitiativeDetailPage } from './pages/InitiativesPage';
 import { ServicesPage } from './pages/ServicesPage';
 import { ContactPage } from './pages/ContactPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
@@ -41,6 +42,8 @@ function ScrollToTop() {
 }
 
 function MainAppLayout() {
+  const { pathname } = useLocation();
+  const isInitiativesPage = pathname === '/initiatives' || pathname.startsWith('/initiatives/');
   // Modal state managers
   const [isStartProjectOpen, setIsStartProjectOpen] = useState(false);
   const [initialPlan, setInitialPlan] = useState<string | undefined>(undefined);
@@ -86,13 +89,15 @@ function MainAppLayout() {
       <ScrollToTop />
 
       {/* Top Main Navigation */}
-      <Header
-        onOpenStartProject={() => handleOpenStartProject()}
-      />
+      {!isInitiativesPage && (
+        <Header onOpenStartProject={() => handleOpenStartProject()} />
+      )}
 
       {/* Main Content Area Routing */}
       <main className="flex-1 flex flex-col justify-start">
         <Routes>
+          <Route path="/initiatives" element={<InitiativesPage />} />
+          <Route path="/initiatives/:slug" element={<InitiativeDetailPage />} />
           <Route
             path="/"
             element={
@@ -180,7 +185,7 @@ function MainAppLayout() {
       </main>
 
       {/* BIZZJUMP Giant Display Navy Footer */}
-      <FooterSection onSelectProject={handleOpenProject} />
+      {!isInitiativesPage && <FooterSection onSelectProject={handleOpenProject} />}
 
       {/* Start Project Interactive Brief Modal */}
       <StartProjectModal

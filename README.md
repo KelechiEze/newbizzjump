@@ -19,6 +19,16 @@ View your app in AI Studio: https://ai.studio/apps/cefee3ea-f1aa-414b-9c78-f0394
 3. Run the app:
    `npm run dev`
 
+Open http://localhost:3000/ for BIZZJUMP. The development server requires port 3000 and exits with an error if another app is using it, rather than silently switching ports. If the port is occupied, identify the listener with `lsof -nP -iTCP:3000 -sTCP:LISTEN` and stop that app before restarting.
+
+## Initiatives
+
+Visit `/initiatives` for the CP Kids and Jump Ride project index. Each card opens its own case study at `/initiatives/cp-kids` or `/initiatives/jump-ride`, with product imagery and links to the other initiative. The index is linked from the desktop/mobile navigation and footer.
+
+These pages use a standalone white editorial layout based on the supplied video, rather than the shared header and navy footer. Project content lives in `src/data/initiativesData.ts`; local cover images, supplied photographs, and product screenshots live in `public/initiatives/`. The two cover images are AI-generated illustrations, not photographs of actual users or an operating fleet. Case studies describe the product direction without promising verified outcomes or earnings.
+
+CP Kids is a collaboration with EMITSPHERE, not a BIZZJUMP-owned product. Its case study includes a click-to-load Google Drive tutorial with a direct viewing link; the Drive file must allow viewing by the intended audience (for public access, use "Anyone with the link"). The homepage hero and highlighted desktop/mobile navigation link to the initiatives index.
+
 ## Contact form backend
 
 Run the API separately from `backend/` with `npm install` and `npm start`. The Vite development server proxies `/api` to `http://localhost:5000`. For a deployed frontend, set `VITE_API_URL` to the deployed backend URL, including its `/api` path, for example `https://api.example.com/api`.

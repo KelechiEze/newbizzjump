@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { ArrowUpRight, Clock, Users } from 'lucide-react';
+import { ArrowUpRight, Clock, CornerDownLeft, Sparkles, Users } from 'lucide-react';
 import { motion } from 'motion/react';
+import { Link } from 'react-router-dom';
 
 interface HeroSectionProps {
   onOpenStartProject: () => void;
@@ -95,6 +96,22 @@ export const HeroSection = ({
               <span>OUR APPROACH</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
+          </div>
+          <div className="mt-6 flex flex-col items-start gap-3">
+            <div className="flex items-center gap-2 text-[#181a33]/70" id="hero-initiatives-hint">
+              <CornerDownLeft className="h-5 w-5 shrink-0 text-[#181a33]" aria-hidden="true" />
+              <span className="text-xs sm:text-sm">Explore BIZZJUMP initiatives with this button</span>
+            </div>
+            <Link
+              to="/initiatives"
+              id="hero-initiatives-btn"
+              aria-describedby="hero-initiatives-hint"
+              className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full bg-[#181a33] px-6 py-3.5 text-xs font-medium uppercase tracking-normal text-white shadow-sm transition-colors hover:bg-[#dbfa07] hover:text-[#181a33] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#181a33] sm:text-sm"
+            >
+              <Sparkles className="h-4 w-4 text-[#dbfa07] group-hover:text-[#181a33]" aria-hidden="true" />
+              View our initiatives
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 motion-reduce:transform-none motion-reduce:transition-none" aria-hidden="true" />
+            </Link>
           </div>
         </motion.div>
 

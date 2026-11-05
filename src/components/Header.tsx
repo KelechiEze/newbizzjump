@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, Sparkles, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { NavLink, Link } from 'react-router-dom';
 
@@ -47,8 +47,8 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
         />
       </Link>
 
-      {/* Desktop Navigation Links: PROJECTS, ABOUT, SERVICES, CONTACT ↗ */}
-      <nav className="hidden md:flex items-center gap-8 lg:gap-10 text-[13px] font-bold tracking-[0.03em] uppercase text-neutral-800">
+      {/* Desktop Navigation */}
+      <nav className="hidden md:flex items-center gap-4 lg:gap-8 text-[13px] font-bold tracking-[0.03em] uppercase text-neutral-800">
         <NavLink
           to="/projects"
           className={({ isActive }) =>
@@ -68,6 +68,18 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
               ></span>
             </>
           )}
+        </NavLink>
+
+        <NavLink
+          to="/initiatives"
+          className={({ isActive }) =>
+            `inline-flex min-h-10 items-center gap-2 rounded-full border border-[#181a33]/10 bg-[#dbfa07] px-4 py-2 text-[#181a33] transition-colors hover:bg-[#181a33] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#181a33] ${isActive ? 'font-black' : ''}`
+          }
+          id="nav-initiatives"
+        >
+          <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+          INITIATIVES
+          <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
         </NavLink>
 
         <NavLink
@@ -154,6 +166,14 @@ export const Header = ({ onOpenStartProject }: HeaderProps) => {
               className="text-left py-2 hover:text-neutral-500"
             >
               Projects
+            </NavLink>
+            <NavLink
+              to="/initiatives"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between gap-3 rounded-full bg-[#dbfa07] px-4 py-3 text-[#181a33] hover:bg-[#181a33] hover:text-white"
+            >
+              <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" aria-hidden="true" /> Initiatives</span>
+              <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </NavLink>
             <NavLink
               to="/about"

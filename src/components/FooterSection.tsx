@@ -232,6 +232,12 @@ export const FooterSection = ({ onSelectProject }: FooterSectionProps) => {
               >
                 PROJECTS
               </Link>
+              <Link
+                to="/initiatives"
+                className="block text-xs sm:text-sm font-bold tracking-[0.12em] uppercase text-neutral-300 hover:text-[#dbfa07] transition-colors text-left cursor-pointer"
+              >
+                INITIATIVES
+              </Link>
             </div>
 
             {/* Column 2 */}
