@@ -3,11 +3,12 @@ interface InitiativeImage {
   alt: string;
 }
 
-export interface Initiative {
+interface InitiativeBase {
   slug: string;
   name: string;
   summary: string;
   introduction: string;
+  tagline?: string;
   discipline: string;
   credit: string;
   tutorial?: {
@@ -16,14 +17,35 @@ export interface Initiative {
     fileId: string;
   };
   cover: InitiativeImage;
+  screens: (InitiativeImage & { width: number; height: number })[];
+  photographs: InitiativeImage[];
+}
+
+interface LegacyInitiative extends InitiativeBase {
   overview: string;
   challenge: string;
   approach: { title: string; description: string }[];
   feature: { title: string; description: string };
   outcome: string;
-  screens: (InitiativeImage & { width: number; height: number })[];
-  photographs: InitiativeImage[];
 }
+
+interface InitiativeStorySection {
+  title: string;
+  paragraphs?: string[];
+  layout?: 'steps' | 'list' | 'cards';
+  items?: { title: string; subtitle?: string; description: string }[];
+}
+
+interface StructuredInitiative extends InitiativeBase {
+  storySections: InitiativeStorySection[];
+  closingCallout: {
+    title: string;
+    tagline: string;
+    description: string;
+  };
+}
+
+export type Initiative = LegacyInitiative | StructuredInitiative;
 
 export const INITIATIVES: Initiative[] = [
   {
@@ -70,32 +92,103 @@ export const INITIATIVES: Initiative[] = [
   {
     slug: 'jump-ride',
     name: 'Jump Ride',
-    summary: 'Thoughtful mobility for the way Nigeria moves.',
-    introduction: 'Comfortable journeys. More possibilities. A ride-hailing experience designed around everyday life in Nigeria.',
-    discipline: 'Mobility / Product design / Community',
+    summary: 'Move smarter. Spend better. Go further.',
+    tagline: 'Move smarter. Spend better. Go further.',
+    introduction: 'An affordable mobility experience designed around the way people move every day in Nigeria. From individual rides to shared commutes and planned journeys, Jump Ride brings more ways to get where you need to go.',
+    discipline: 'Mobility / Shared commutes / Rewards',
     credit: 'A BIZZJUMP initiative',
     cover: {
       src: '/initiatives/jump-ride-cover.jpg',
-      alt: 'AI-generated illustration of a mint-green ride-hailing car on a Lagos boulevard near the Lekki-Ikoyi bridge.',
+      alt: 'AI-generated illustration of a mint-green car on a Lagos boulevard near the Lekki-Ikoyi bridge.',
     },
-    overview: 'Jump Ride is BIZZJUMP\'s response to a very everyday problem: getting where you need to go without stretching an already tight budget. It is a ride-hailing product built around comfortable journeys, reasonable fares, and opportunities for passengers to earn towards the cost of their rides.',
-    challenge: 'In Nigeria, the cost of everyday transport can put pressure on work, education, and family life. A useful mobility service needs to understand that reality. The challenge is not simply to make booking a car easier, but to imagine a service that works with the local economy and gives passengers more flexibility.',
-    approach: [
-      { title: 'Make booking feel effortless.', description: 'A clear starting point, visible trip information, and an approachable booking flow help passengers plan a journey with confidence.' },
-      { title: 'Put affordability at the centre.', description: 'Reasonable pricing and an easy-to-understand wallet experience keep the cost of a journey part of the conversation from the beginning.' },
-      { title: 'Create opportunities along the way.', description: 'Games and other optional activities are part of the product vision, giving passengers ways to earn towards future ride costs. Earnings are not guaranteed.' },
-      { title: 'Design for the whole community.', description: 'Passenger, driver, and fleet-owner experiences are considered together, with the aim of making the service useful for everyone involved.' },
+    storySections: [
+      {
+        title: 'Overview',
+        paragraphs: [
+          'Getting around should be easier to plan and more affordable to manage.',
+          'Jump Ride is a mobility platform designed to give passengers more control over their everyday journeys. Whether booking an individual ride, sharing a commute or planning trips ahead, users can explore flexible ways to move.',
+          'Beyond transportation, Jump Ride introduces a connected experience that brings ride planning, shared mobility and rewards into one platform.',
+        ],
+      },
+      {
+        title: 'The Challenge',
+        paragraphs: [
+          'For many people, transportation is a daily expense that affects how they work, study, run businesses and manage everyday responsibilities.',
+          'Individual rides can become expensive, daily commutes can be unpredictable, and planning multiple journeys often means using different services.',
+          'Jump Ride explores a simpler approach: giving people more options to travel, plan ahead and make better use of their transportation budget.',
+        ],
+      },
+      {
+        title: 'The Jump Ride Experience',
+        layout: 'steps',
+        items: [
+          {
+            title: 'Book a Ride',
+            subtitle: 'Your destination. Your journey. Your choice.',
+            description: 'Need to get somewhere? Enter your destination, explore available ride options and book an individual trip. Jump Ride is designed to make everyday booking straightforward, with clear journey information and a convenient way to get moving.',
+          },
+          {
+            title: 'Jump Circles',
+            subtitle: 'Share your commute. Make every journey count.',
+            description: 'Why travel alone when others are heading in the same direction? Jump Circles brings together passengers travelling along similar routes, creating opportunities to share scheduled journeys and split transportation costs. From regular work commutes to familiar daily routes, it offers another way to make getting around more affordable.',
+          },
+          {
+            title: 'Jump Pass',
+            subtitle: 'Plan your rides. Stay ahead of your commute.',
+            description: 'Some journeys happen every day. Jump Pass is designed to help users plan those journeys ahead of time. Explore ride packages and planned travel options that make it easier to organise regular transportation and manage your commuting budget.',
+          },
+          {
+            title: 'Jump Connect',
+            subtitle: 'Connect your journey. Get where you need to go.',
+            description: 'Not every journey happens in one ride. Jump Connect is designed to bring different transportation options together, helping users plan connections between their starting point, public transport and final destination. The goal is to make everyday journeys more connected and convenient.',
+          },
+          {
+            title: 'Jump Rewards',
+            description: 'One of Jump Ride\'s defining ideas is its passenger rewards experience. Through optional games, sponsored activities and engagement-based challenges, passengers can earn eligible ride credits towards future journeys. The rewards concept creates another reason to engage with the platform beyond booking a ride. Rewards are subject to eligibility, programme rules and available funding. They are designed as supplementary benefits rather than guaranteed income.',
+          },
+        ],
+      },
+      {
+        title: 'More Than a Ride',
+        paragraphs: ['Jump Ride brings several mobility experiences together in one place.'],
+        layout: 'list',
+        items: [
+          { title: 'Individual trips', description: 'Book a ride whenever you need one.' },
+          { title: 'Shared commutes', description: 'Connect with passengers travelling in your direction.' },
+          { title: 'Planned journeys', description: 'Organise regular rides and explore available packages.' },
+          { title: 'Connected transportation', description: 'Plan journeys that involve different transport options.' },
+          { title: 'Ride rewards', description: 'Explore eligible activities and earn credits towards future rides.' },
+        ],
+      },
+      {
+        title: 'Designed Around Everyday Life',
+        paragraphs: ['Jump Ride considers the needs of everyone involved in the mobility experience.'],
+        layout: 'cards',
+        items: [
+          { title: 'For passengers', description: 'More ways to travel, plan journeys and manage transportation costs.' },
+          { title: 'For drivers', description: 'Opportunities to receive ride requests and participate in individual or shared journeys.' },
+          { title: 'For fleet partners', description: 'A connected platform to coordinate vehicles, drivers and transportation demand.' },
+        ],
+      },
+      {
+        title: 'Our Vision',
+        paragraphs: [
+          'We believe mobility should offer more than a way to get from one place to another.',
+          'It should give people flexibility, help them manage everyday costs and create better connections between the places they need to go.',
+          'Jump Ride is our vision for a more accessible and connected mobility experience, starting in Nigeria and built with the potential to serve communities across Africa.',
+        ],
+      },
     ],
-    feature: {
-      title: 'More than a journey',
-      description: 'The product direction brings ride booking, scheduled trips, a passenger wallet, and rewards into one coherent experience. Optional games and activities explore how the time around a journey could create additional value, without getting in the way of the simple task of booking a ride.',
+    closingCallout: {
+      title: 'Jump Ride',
+      tagline: 'Move smarter. Spend better. Go further.',
+      description: 'A better way to think about every journey.',
     },
-    outcome: 'A community-minded mobility concept that treats affordability as a design priority, not an afterthought. Jump Ride reflects BIZZJUMP\'s ambition to build practical products that respond to the realities of life in Nigeria.',
     screens: [
-      { src: '/initiatives/jump-ride-screen-1.jpg', alt: 'Jump Ride passenger dashboard with ride booking, trip scheduling, a map, and a wallet.', width: 1440, height: 760 },
+      { src: '/initiatives/jump-ride-screen-1.jpg', alt: 'Jump Ride dashboard with mobility options, trip scheduling, a map, and a wallet.', width: 1440, height: 760 },
       { src: '/initiatives/jump-ride-screen-2.jpg', alt: 'Jump Ride login page with password and one-time-password sign-in options.', width: 1440, height: 813 },
-      { src: '/initiatives/jump-ride-screen-3.jpg', alt: 'Jump Ride mission and transport service design, featuring a green branded vehicle.', width: 1440, height: 760 },
-      { src: '/initiatives/jump-ride-screen-4.jpg', alt: 'Jump Ride booking interface with a side view of the green car and ride assistant.', width: 1440, height: 760 },
+      { src: '/initiatives/jump-ride-screen-3.jpg', alt: 'Jump Ride mission and mobility ecosystem design, featuring a green branded vehicle.', width: 1440, height: 760 },
+      { src: '/initiatives/jump-ride-screen-4.jpg', alt: 'Jump Ride trip-planning interface with a side view of the green car and ride assistant.', width: 1440, height: 760 },
     ],
     photographs: [],
   },

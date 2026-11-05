@@ -23,7 +23,7 @@ Open http://localhost:3000/ for BIZZJUMP. The development server requires port 3
 
 ## Initiatives
 
-Visit `/initiatives` for the CP Kids and Jump Ride project index. Each card opens its own case study at `/initiatives/cp-kids` or `/initiatives/jump-ride`, with product imagery and links to the other initiative. The index is linked from the desktop/mobile navigation and footer.
+Visit `/initiatives` for the CP Kids and Jump Ride project index. Each card opens its own case study at `/initiatives/cp-kids` or `/initiatives/jump-ride`, with product imagery and links to the other initiative. Jump Ride presents a range of affordable mobility experiences for everyday life in Nigeria, including individual rides, shared commutes, planned journeys, connections and eligible ride rewards. The index is linked from the desktop/mobile navigation and footer.
 
 These pages use a standalone white editorial layout based on the supplied video, rather than the shared header and navy footer. Project content lives in `src/data/initiativesData.ts`; local cover images, supplied photographs, and product screenshots live in `public/initiatives/`. The two cover images are AI-generated illustrations, not photographs of actual users or an operating fleet. Case studies describe the product direction without promising verified outcomes or earnings.
 
