@@ -95,7 +95,7 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/Lola%20logo.avif"
+                src="https://pub-f3c96df7febc49c0ba1bd44f97f8c194.r2.dev/Lola%20logo.avif"
                 alt="Lola Shoneyin logo"
                 referrerPolicy="no-referrer"
                 className="max-w-[72%] max-h-24 w-auto h-auto object-contain"
@@ -114,7 +114,7 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/5.avif"
+                src="https://pub-f3c96df7febc49c0ba1bd44f97f8c194.r2.dev/5.avif"
                 alt="Brand collaboration 5"
                 referrerPolicy="no-referrer"
                 className="max-w-[72%] max-h-24 w-auto h-auto object-contain"
@@ -133,7 +133,7 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/3.avif"
+                src="https://pub-f3c96df7febc49c0ba1bd44f97f8c194.r2.dev/3.avif"
                 alt="Brand collaboration 3"
                 referrerPolicy="no-referrer"
                 className="max-w-[72%] max-h-24 w-auto h-auto object-contain"
@@ -152,7 +152,7 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/4.avif"
+                src="https://pub-f3c96df7febc49c0ba1bd44f97f8c194.r2.dev/4.avif"
                 alt="Brand collaboration 4"
                 referrerPolicy="no-referrer"
                 className="max-w-[72%] max-h-24 w-auto h-auto object-contain"
@@ -171,7 +171,7 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/2.avif"
+                src="https://pub-f3c96df7febc49c0ba1bd44f97f8c194.r2.dev/6.avif"
                 alt="Brand collaboration 2"
                 referrerPolicy="no-referrer"
                 className="max-w-[72%] max-h-24 w-auto h-auto object-contain"
@@ -190,7 +190,7 @@ export const WhoWeAreSection = ({
           >
             <div className="w-full h-full min-h-[110px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
               <img
-                src="https://vdvqizejzzdociiqymld.supabase.co/storage/v1/object/public/Images%20For%20bizz/6.avif"
+                src="https://pub-f3c96df7febc49c0ba1bd44f97f8c194.r2.dev/2.avif"
                 alt="Brand collaboration 6"
                 referrerPolicy="no-referrer"
                 className="max-w-[72%] max-h-24 w-auto h-auto object-contain"

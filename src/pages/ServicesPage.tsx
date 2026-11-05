@@ -207,7 +207,7 @@ export const ServicesPage = ({ onOpenStartProject, onOpenContact }: ServicesPage
           className="relative max-w-7xl mx-auto overflow-hidden bg-[#181a33] text-white p-10 sm:p-14 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8"
         >
           <video
-            src="https://res.cloudinary.com/nqlff1i2/video/upload/v1787743435/huki_wu5fzr.mp4"
+            src="https://res.cloudinary.com/hdwuzrzf/video/upload/v1787860132/Y7gFBMR55ZjxtJCLlsAbQkdlls.mp4"
             autoPlay
             loop
             muted
